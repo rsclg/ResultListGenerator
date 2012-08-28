@@ -1,0 +1,97 @@
+body  {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+body, table.inputTable, resultHTML, .resultTable {
+	font-family: verdana;
+	font-size: 11px;
+}
+	
+legend {
+	font-weight: bold;
+}
+
+a.add, a.del {
+	border: 1px solid black;
+	font-weight: bold;
+	font-style: normal;
+	text-decoration: none;
+	font-size: 0.8em;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+a.add {
+	color: green;
+}
+
+a.del {
+	color: red;
+}
+
+input.actionBtn {
+	width: 140px;
+}
+
+input.small {
+	width: 40px;
+	text-align: center;
+}
+
+button.moveBtn {
+	width: 25px;
+	height: 25px;
+	padding-bottom: 3px;
+}
+
+fieldset {
+	margin-bottom: 10px;
+}
+
+tr.member:hover {
+	background-color: #f0f0f0;
+}
+
+td.member button {
+	font-size: 15px;
+}
+
+table.inputTable {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+table.inputTable td div {
+	width: 50px;
+	float: left;
+}
+
+select {
+	width: 200px;
+}
+
+div#history, div#help, div#todo {
+	padding: 0px 5px 5px 5px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 200px;
+	border: 1px solid black;
+}
+
+div#history u, div#help u, div#todo u {
+	display: block;
+	font-weight: bold;
+	padding-top: 5px;
+}
+
+div#history p, div#help p, div#todo p {
+	padding-left: 10px;
+	padding-top: 5px;
+	margin: 0px;
+	text-align: left;
+}
+
+div#history p:before {
+	content: "- ";
+}

@@ -1,0 +1,151 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="content-language" content="de" />
+	<title>Ergebsnislisten - Generator</title>
+
+	<script src="javascript/user.js" type="text/javascript"></script>
+	<script src="javascript/functions.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="css/layout.css" type="text/css" />
+</head>
+<body onload="addCompetition();">
+	<h2>Ergebsnislisten - Generator</h2>
+	<!-- Competition -->
+	<fieldset>
+	<legend>Datum / Wettkampf</legend>
+		<input id="dateDay" type="text" style="width: 30px; text-align: center;" maxlength="2" title="Datum des Wettkampfs: Tag"/>.
+		<input id="dateMonth" type="text" style="width: 30px; text-align: center;" maxlength="2" title="Datum des Wettkampfs: Monat"/>.
+		<input id="dateYear" type="text" style="width: 50px; text-align: center;" maxlength="4" title="Datum des Wettkampfs: Jahr"/>
+		&nbsp;:&nbsp;
+		<input id="competition" type="text" size="50" title="Name des Wettkampfs"/>
+	</fieldset>
+	
+	<!-- Competitions -->
+	<fieldset id="competitions"><legend>Wettbewerbe <a href="javascript:addCompetition();" class="add" title="Wettbewerb hinzufügen">+</a> <a href="javascript:delCompetition();" class="del" title="Letzten Wettbewerb löschen">X</a></legend></fieldset>
+	
+	<!-- Preview -->
+	<fieldset style="float: left; width: 47%;">
+	<legend>Vorschau</legend>
+		<div id="resultHTML" style="overflow: scroll; width: 100%; height: 270px; border: 1px solid black;"/>
+	</fieldset>
+	<!-- Output -->
+	<fieldset style="float: right; width: 47%;">
+	<legend>Generiertes XML</legend>
+		<textarea id="resultXML" style="width: 100%; height: 270px;" readonly="readonly" wrap="off"></textarea>
+	</fieldset>
+	<!-- Action -->
+	<fieldset style="clear: both; text-align: center; height: 50px;">
+	<legend>Aktionen</legend>
+		<input class="actionBtn" type="button" onclick="document.getElementById('resultXML').value=''; document.getElementById('resultHTML').innerHTML='';" value="Felder leeren" title="Leert die Felder 'Vorschau' und 'Generiertes XML'"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="generateHTML(); showErrorMsg();" value="Vorschau" title="Erzeugt anhand der eingegebenen Daten eine Vorschau"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code für den Web Content"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="sendResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Prüfung der Ergebnismeldung werden diese veröffentlicht."/>
+	</fieldset>
+	<!-- Help -->
+	<fieldset style="float: left; width: 31%;">
+	<legend>Hilfe</legend>
+		<div id="help">
+		<u name="dnf">Inhalt</u>
+		<ul>
+			<li><a href="#send_results">Ergebnisse melden</a></li>
+			<li><a href="#dnf">DNF eintragen</a></li>
+			<li><a href="#publication">Veröffentlichung von Ergebnissen</a></li>
+			<li><a href="#placing_agegroup">Altersklassenwertung</a></li>
+		</ul>
+		<u id="send_results">Ergebnisse melden</u>
+		<p>Um die Ergebnisse eines Wettkampfs zu melden geht man wie folgt vor:</p>
+			<ol>
+				<li>Datum (Tag, Monat Jahr) und Name der Veranstaltung im Bereich "Datum / Wettkampf" eintragen</li>
+				<li>Dann den ersten Wettbewerb benennen (Aus der Selectbox hinter dem Namesfeld kann eine Vorlage gewählt werden. Diese wird dann ins Namensfeld übernommen, wo sie noch angepasst werden kann.)</li>
+				<li>Als nächstes alle Starter des Teams mit ihren Zeiten (Stunden, Minuten, Sekunden) und Platzierungen (Platzierung im Gesamtklassement pro Geschlecht, Gesamtzahl Teilnehmer im Gesamtklassement pro Geschlecht, Platzierung in der Altersklasse, Gesamtzahl Teilnehmer in der Altersklasse) für diesen Wettbewerb eintragen.</li>
+				<li>Das Ergebnis erscheint in der Vorschau-Box nach dem Klicken auf den Button "Vorschau". Falls Angaben fehlerhaft oder unvollständig sind wird ein Meldung angezeigt.</li>
+				<li>Falls es bei der Veranstaltung mehr als einen Wettbewerb gab, kann mit dem "+" hinter "Wettbewerbe" ein weiterer Eingabebereich für einen Wettbewerb angelegt werden. Danach Punkt 2-4 wiederholen.</li>
+				<li>Durch die Pfeiltasten an den Wettbewerben können diese in der Reihenfolgen verändert werden. Am Besten befinden sich oben die kurzen Distanzen und nach unten werden sie immer länger.</li>
+				<li>Durch die Pfeiltasten Startern kann auch hier die Reihenfolge geändert werden. Sie soll immer von oben nach unten der Reihenfolgen im Gesmatklassement entsprechen.</li>
+				<li>Wenn alles eingetragen ist, können die Ergebnisse per Klick auf "Ergebnisse melden" an den Webseiten Administrator gesendet werden. Falls noch Fehöler existieren wird eine Meldung angezeigt.</li>
+			</ol>
+		<p>Alle Eingabefelder, Checkboxen, SelectBoxen und Buttons haben ToolTips die hilfreiche Hinweise zu ihrer jeweiligen Funktion geben.</p>
+		<u id="dnf">DNF eintragen</u>
+		<p>Um für einen Starter "DNF" (Did not finish) einzutragen, müssen die Zeiten (Stunden, Minuten und Sekunden) auf "0" gesetzt werden. Dann wird automatisch der Eintrag "DNF (Did not finish)" erzeugt. Die Angabe der Platzierung ist dann nicht mehr notwendig.</p>
+		<u id="publication">Veröffentlichung von Ergebnissen</u>
+		<p>Die Ergebnismeldung wird nicht automatisch auf der Triathlon Team Seite veröffentlich, sondern vorher geprüft. Es kann also durchaus ein paar Tage dauern, bis Ergebnisse online stehen.</p>
+		<u id="placing_agegroup">Altersklassenwertung</u>
+		<p>Es kann vorkommen, dass ein Veranstalter keine Alterklassewertung anbietet. In diesem Fall muss nur die Checkbox neben "Platz Alterklasse" deselektiert werden. Dann wird die Spalte nicht mehr ausgewertet und auch nciht auf Fehler geprüft.</p>
+		</div>
+	</fieldset>
+	<!-- Help -->
+	<fieldset style="float: right; width: 31%;">
+	<legend>ToDo</legend>
+		<div id="todo">
+		<u>Folgenden Dinge sollen noch kommen:</u>
+		<p>- Kommentar schreiben vor dem Absenden + Select für Name des Senders</p>
+		<p>- freie Eingabefelder für z.B. Staffel</p>
+		<u>Wünsche / Vorschläge / Hinweise:</u>
+		<p>- bitte per <a href="mailto:mail@tri-team-lueneburg.de?subject=Wünsche / Vorschläge / Hinweise zum Ergebnislistengenerator">Mail</a> senden</p>
+		</div>
+	</fieldset>
+	<!-- History -->
+	<fieldset style="margin: auto;">
+	<legend>Historie</legend>
+		<div id="history">
+			<u>v0.9.7</u>
+			<p>Layout angepasst</p>
+			<p>Mail angepasst</p>
+			<p>Code aufgeräumt</p>
+
+			<u>v0.9.6</u>
+			<p>Platzierungsicons angepasst und mit Tooltip versehen</p>
+
+			<u>v0.9.5</u>
+			<p>Anzeige von DNF wenn alle Zeiten "0"</p>
+			<p>Boxen für Hilfe, Historie und ToDo eingefügt</p>
+			<p>Eingabefelder, Checkboxen, SelectBoxen und Buttons mit ToolTips versehen</p>
+			
+			<u>v0.9.4</u>
+			<p>Vorlagen für Wettbewerbe</p>
+			<p>Initial wird 1 Wettbewerb angezeigt</p>
+
+			<u>v0.9.3</u>
+			<p>Parsing Bug von Int Werten behoben >>> parseInt("08") lieferte 0</p>
+
+			<u>v0.9.2</u>
+			<p>Bug mit maxLength behoben >>> führte im IE zum Absturz</p>
+			<p>Browser-Kompatibilität mit IE 7 hergestellt</p>
+
+			<u>v0.9.1</u>
+			<p>Markierung der aktuellen Zeile über der sich die Maus befindet (MouseOver)</p>
+			<p>Benutzerlisten aktualisiert</p>
+
+			<u>v0.8</u>
+			<p>Anzeige der fehlenden oder fehlerhaften Felder</p>
+
+			<u>v0.7</u>
+			<p>Vertauschen der Reihenfolge der Wettbewerbe</p>
+
+			<u>v0.6</u>
+			<p>Auswahl ob AK Wertung oder nicht</p>
+
+			<u>v0.5</u>
+			<p>Validierung von Zahl-Feldern (Anzeigen von Fehlern)</p>
+			<p>Fokusierung der Select-Box beim Erzeugen neuer Zeilen</p>
+
+			<u>v0.4</u>
+			<p>Vertauschen der Reihenfolge der Teilnehmer</p>
+
+			<u>v0.3</u>
+			<p>Anpassung von Label und Layout</p>
+			<p>Übertragen der Ergebnisse (per Mail)</p>
+
+			<u>v0.2</u>
+			<p>dynamisches Erzeugen von Wettbewerben</p>
+
+			<u>v0.1</u>
+			<p>Initiale Erstellung</p>
+		</div>
+	</fieldset>
+</body>
+</html>

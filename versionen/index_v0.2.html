@@ -1,0 +1,489 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="content-language" content="de" />
+	<title>Ergebnislistengenerator</title>
+	<style type="text/css">
+	body, table.inputTable, resultHTML, .resultTable {font-family: verdana; font-size: 12px;}
+	legend{font-weight: bold;}
+	a.add, a.del {border: 1px solid black; font-weight: bold; font-style: normal; text-decoration: none; font-size: 0.8em; padding-left: 2px; padding-right: 2px;}
+	a.add {color: green;}
+	a.del {color: red;}
+	input.actionBtn {width: 120px;}
+	input.small {width: 30px; text-align: center;}
+	</style>
+	<!--
+	ToDo:
+	
+		- Führenden Nullen (NaN in rot darstellen)
+		- Zeilen vertauschen
+		- Per mail senden (inkl. Kommentar Feld)
+		- kurze Anleitung
+		- freie Eingabefelder für z.B. Staffel
+	
+	-->
+</head>
+<body>
+	<h2>Ergebnislistengenerator</h2>
+	<!-- Competition -->
+	<fieldset>
+	<legend>Datum / Wettkampf</legend>
+		<input id="dateDay" type="text" style="width: 30px; text-align: center;" maxlength="2" />.
+		<input id="dateMonth" type="text" style="width: 30px; text-align: center;" maxlength="2" />.
+		<input id="dateYear" type="text" style="width: 50px; text-align: center;" maxlength="4" />
+		&nbsp;:&nbsp;
+		<input id="competition" type="text" size="50" />
+	</fieldset>
+	
+	<!-- Competitions -->
+	<fieldset id="competitions">
+	<legend>Wettbewerbe <a href="javascript:addCompetition();" class="add" title="Wettbewerb hinzufügen">+</a> <a href="javascript:delCompetition();" class="del" title="Letzten Wettbewerb löschen">X</a></legend>
+	</fieldset>
+	
+	<!-- Preview -->
+	<fieldset style="float: left;">
+	<legend>Vorschau</legend>
+		<div id="resultHTML" style="overflow: scroll; width: 580px; height: 263px; float: left;border: 1px solid black;"/>
+	</fieldset>
+	<!-- Output -->
+	<fieldset style="float: right;">
+	<legend>Generiertes XML</legend>
+		<textarea id="resultXML" cols="73" rows="15" readonly="readonly" wrap="off"></textarea>
+	</fieldset>
+	<!-- Action -->
+	<fieldset style="clear: both; text-align: center;">
+	<legend>Aktionen</legend>
+		<input class="actionBtn" type="button" onclick="document.getElementById('resultXML').value='';document.getElementById("resultHTML").innerHTML='';" value="Felder leeren"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="generateHTML();" value="Vorschau"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="generateXML();" value="XML generieren"/>
+	</fieldset>
+</body>
+<script type="text/javascript">
+<!--
+function generateXML() {
+	var resultXML = '';
+	
+	resultXML += getXMLRow('	<paragraph>');
+	resultXML += getXMLRow('		<title>' + document.getElementById("dateDay").value + '.' + document.getElementById("dateMonth").value + '.' + document.getElementById("dateYear").value + ' : ' + document.getElementById("competition").value + '</title>');
+	resultXML += getXMLRow('		<text><![CDATA[');
+	resultXML += getCompetitions();
+	resultXML += getXMLRow('		]]></text>');
+	resultXML += getXMLRow('	</paragraph>');
+	
+	document.getElementById("resultXML").value = resultXML;
+}
+
+function generateHTML() {
+	document.getElementById("resultHTML").innerHTML = getCompetitions();
+}
+
+function getCompetitions() {
+	var result = '';
+	
+	for (var i = 0; i < document.getElementById("competitions").getElementsByTagName("table").length; i++) {
+	
+		if (i > 0) {
+			result += getXMLRow('		<br/><br/>');
+		}
+	
+		result += getXMLRow('		<table class="resultTable" border="0" cellpadding="5" cellspacing="0" width="100%">');
+		result += getXMLRow('			<thead>');
+		result += getXMLRow('				<tr style="font-size: 1.1em; text-align: center;">');
+		result += getXMLRow('					<td colspan="5" style="border-bottom: 1px solid #000000;">' + document.getElementById("competition_" + i + "_title").value + '</td>');
+		result += getXMLRow('				</tr>');
+		result += getXMLRow('				<tr>');
+		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;">Teilnehmer</td>');
+		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Zeit</td>');
+		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Platz Gesamt (M/W)</td>');
+		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Platz Altersklasse</td>');
+		result += getXMLRow('				</tr>');
+		result += getXMLRow('			</thead>');
+		result += getXMLRow('			<tbody>');
+		
+		var actNode = document.getElementById("competition_" + i + "_tbody").firstChild.nextSibling;
+		var womenFinished = false;
+		var womanAdded = false;
+		var manAdded = false;
+		while (actNode != null) {
+			if (actNode.nodeType == 1) {
+				if (actNode.id == "competition_" + i + "_tr_men") {
+					womenFinished = true;
+				} else if (actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
+					if (!womenFinished) {
+						if(!womanAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
+							result += getXMLRow('				<tr>');
+							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Frauen</a></td>');
+							result += getXMLRow('				</tr>');
+							womanAdded = true;
+						}
+					}
+					else {
+						if(!manAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
+							result += getXMLRow('				<tr>');
+							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Männer</a></td>');
+							result += getXMLRow('				</tr>');
+							manAdded = true;
+						}
+					
+					}
+					
+					var timeHours = parseInt(actNode.getElementsByTagName("input")[0].value);
+					var timeMinutes = parseInt(actNode.getElementsByTagName("input")[1].value);
+					var timeSeconds = parseInt(actNode.getElementsByTagName("input")[2].value);
+					var placingOverall = parseInt(actNode.getElementsByTagName("input")[3].value);
+					var placingOverallTotal = parseInt(actNode.getElementsByTagName("input")[4].value);
+					var placingAgeGroup = parseInt(actNode.getElementsByTagName("input")[5].value);
+					var placingAgeGroupTotal = parseInt(actNode.getElementsByTagName("input")[6].value);
+					
+					var medalOverall = getMedalString(placingOverall);
+					var medalAgeGroup = getMedalString(placingAgeGroup);
+					
+					// add member
+					result += getXMLRow('				<tr>');
+					result += getXMLRow('					<td class="member">' + actNode.getElementsByTagName("select")[0].options[actNode.getElementsByTagName("select")[0].selectedIndex].value + '</td>');
+					result += getXMLRow('					<td>' + timeHours + ':' + timeMinutes + ':' + timeSeconds + ' h</td>');
+					result += getXMLRow('					<td>' + placingOverall + './' + placingOverallTotal + medalOverall + '</td>');
+					result += getXMLRow('					<td>' + placingAgeGroup + './' + placingAgeGroupTotal + medalAgeGroup + '</td>');
+					result += getXMLRow('				</tr>');
+				}
+			}
+			actNode = actNode.nextSibling;
+		}
+		
+		
+		result += getXMLRow('			</tbody>');
+		result += getXMLRow('		</table>');
+	}
+	
+	return result;
+}
+
+function getXMLRow(row) {
+	return row + '\n';
+}
+
+// Adding and deleting competitions
+function addCompetition() {
+	var lastNode = document.getElementById("competitions").lastChild;
+	if (lastNode.nodeType == 1 && lastNode.nodeName == "TABLE") {
+		document.getElementById("competitions").appendChild(document.createElement("br"));
+		document.getElementById("competitions").appendChild(document.createElement("br"));
+	}
+	
+	var nextId = document.getElementById("competitions").getElementsByTagName("table").length;
+	
+	var table = document.createElement("table");
+	table.className = "inputTable";
+	table.border = "0";
+	table.cellPadding = "5";
+	table.cellSpacing = "0";
+	table.width = "100%";
+	
+	var thead = document.createElement("thead");
+	
+	var row = document.createElement("tr");
+	row.style.fontSize = "1.1em";
+	row.style.textAlign = "center";
+	
+	var col = document.createElement("td");
+	col.colSpan = "5";
+	col.style.borderBottom = "1px solid #000000";
+	
+	var input = document.createElement("input");
+	input.id = "competition_" + nextId + "_title";
+	input.type = "text";
+	input.size = "50";
+	input.style.textAlign = "center";
+	input.style.fontWeight = "bold";
+	
+	col.appendChild(input);
+	row.appendChild(col);
+	thead.appendChild(row);
+	
+	row = document.createElement("tr");
+	
+	col = document.createElement("td");
+	col.style.borderBottom = "1px solid #000000";
+	col.appendChild(document.createTextNode("Teilnehmer"));
+	row.appendChild(col);
+	
+	col = document.createElement("td");
+	col.width = "20%";
+	col.style.borderBottom = "1px solid #000000";
+	col.appendChild(document.createTextNode("Zeit"));
+	row.appendChild(col);
+	
+	col = document.createElement("td");
+	col.width = "20%";
+	col.style.borderBottom = "1px solid #000000";
+	col.appendChild(document.createTextNode("Platz Gesamt (M/W)"));
+	row.appendChild(col);
+	
+	col = document.createElement("td");
+	col.width = "20%";
+	col.style.borderBottom = "1px solid #000000";
+	col.appendChild(document.createTextNode("Platz Altersklasse"));
+	row.appendChild(col);
+	
+	thead.appendChild(row);
+	
+	table.appendChild(thead);
+	
+	var tbody = document.createElement("tbody");
+	tbody.id = "competition_" + nextId + "_tbody";
+	
+	row = document.createElement("tr");
+	
+	col = document.createElement("td");
+	col.colSpan = "5";
+	col.style.fontStyle = "italic";
+	col.appendChild(document.createTextNode("Frauen "));
+	
+	var link = document.createElement("a");
+	link.href = "javascript:addWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
+	link.className = "add";
+	link.title = "Frau hinzufügen";
+	link.appendChild(document.createTextNode("+"));
+	col.appendChild(link);
+				
+	col.appendChild(document.createTextNode(" "));
+	
+	link = document.createElement("a");
+	link.href = "javascript:delWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
+	link.className = "del";
+	link.title = "Letzte Frau löschen";
+	link.appendChild(document.createTextNode("X"));
+	col.appendChild(link);
+	
+	row.appendChild(col);
+	tbody.appendChild(row);
+	
+	
+	row = document.createElement("tr");
+	row.id = "competition_" + nextId + "_tr_men";
+	col = document.createElement("td");
+	col.colSpan = "5";
+	col.style.fontStyle = "italic";
+	col.appendChild(document.createTextNode("Männer "));
+	
+	link = document.createElement("a");
+	link.href = "javascript:addManRow('competition_" + nextId + "_tbody');";
+	link.className = "add";
+	link.title = "Mann hinzufügen";
+	link.appendChild(document.createTextNode("+"));
+	col.appendChild(link);
+				
+	col.appendChild(document.createTextNode(" "));
+	
+	link = document.createElement("a");
+	link.href = "javascript:delManRow('competition_" + nextId + "_tbody');";
+	link.className = "del";
+	link.title = "Letzten Mann löschen";
+	link.appendChild(document.createTextNode("X"));
+	col.appendChild(link);
+	
+	row.appendChild(col);
+	tbody.appendChild(row);
+	
+	table.appendChild(tbody);
+		
+	document.getElementById("competitions").appendChild(table);
+
+}
+
+function delCompetition() {
+	var nodeToDelete = document.getElementById("competitions").lastChild;
+	if (nodeToDelete.nodeType == 1 && nodeToDelete.nodeName == "TABLE") {
+		document.getElementById("competitions").removeChild(nodeToDelete);
+		
+		nodeToDelete = document.getElementById("competitions").lastChild;
+		if (nodeToDelete.nodeType == 1 && nodeToDelete.nodeName == "BR") {
+			document.getElementById("competitions").removeChild(document.getElementById("competitions").lastChild);
+			document.getElementById("competitions").removeChild(document.getElementById("competitions").lastChild);
+		}
+	}
+}
+
+// Adding and deleting women rows
+function addWomanRow(tbodyId, trId) {
+	document.getElementById(tbodyId).insertBefore(getRow(women), document.getElementById(trId));
+}
+
+function delWomanRow(tbodyId, trId) {
+	var nodeToDelete = document.getElementById(trId).previousSibling;
+	if (nodeToDelete.firstChild.firstChild.firstChild.nodeType == 1) {
+		document.getElementById(tbodyId).removeChild(nodeToDelete);
+	}
+}
+
+// Adding and deleting men rows
+function addManRow(tbodyId) {
+	document.getElementById(tbodyId).appendChild(getRow(men));
+}
+
+function delManRow(tbodyId) {
+	var nodeToDelete = document.getElementById(tbodyId).lastChild;
+	if (nodeToDelete.firstChild.firstChild.firstChild.nodeType == 1) {
+		document.getElementById(tbodyId).removeChild(nodeToDelete);
+	}
+}
+
+// Create new row
+function getRow(array) {
+	var row = document.createElement("tr");
+	
+	var col1 = document.createElement("td");
+	col1.class="member";
+	col1.appendChild(getMemberSelectBox(array));
+	row.appendChild(col1);
+	
+	var col2 = document.createElement("td");
+	col2.appendChild(getSmallInput(2));
+	col2.appendChild(document.createTextNode(":"));
+	col2.appendChild(getSmallInput(2));
+	col2.appendChild(document.createTextNode(":"));
+	col2.appendChild(getSmallInput(2));
+	col2.appendChild(document.createTextNode(" h"));
+	row.appendChild(col2);
+
+	var col3 = document.createElement("td");
+	col3.appendChild(getSmallInput(null));
+	col3.appendChild(getDotSlash());
+	col3.appendChild(getSmallInput(null));
+	row.appendChild(col3);
+
+	var col4 = document.createElement("td");
+	col4.appendChild(getSmallInput(null));
+	col4.appendChild(getDotSlash());
+	col4.appendChild(getSmallInput(null));
+	row.appendChild(col4);
+
+	return row;
+}
+
+// Create row elements
+function getSmallInput(maxlength) {
+	var input = document.createElement("input");
+	input.type = "text";
+	input.className = "small";
+	if (maxlength != null) {
+		input.maxlength = maxlength;
+	}
+	return input;
+}
+
+function getDotSlash() {
+	return document.createTextNode("./");
+}
+
+function getMedalString(placing) {
+	switch (placing) {
+		case 1 : return ' <img src="pics/results/medal_gold.png"/>';
+		case 2 : return ' <img src="pics/results/medal_silver.png"/>';
+		case 3 : return ' <img src="pics/results/medal_bronze.png"/>';
+		default : return '';
+	}
+}
+
+// Select Box for Women
+var women = new Array("",
+"Bärbel Rievel",
+"Bettina Eggers",
+"Bianca Fehlow",
+"Birgit Lorenz",
+"Carola Gaedtke",
+"Dorle Hausmann",
+"Eeva Korjamo",
+"Esther Böhnig",
+"Ilka Judernatz",
+"Katja Böttge",
+"Melanie Petersen",
+"Peggy Kleidon",
+"Petra Zander",
+"Sandra Stolt",
+"Sandra Wiedel-Horre",
+"Stefanie Tegeler",
+"Susanne Täger",
+"Susanne Walter");
+
+// Select Box for Women
+var men = new Array("",
+"Alexander Kottisch",
+"Andreas Binder",
+"Andreas Buschmann",
+"Andreas Krohn",
+"Arne Rievel",
+"Asmus Werner",
+"Bernd Salomon",
+"Birger Schröder-Eschbach",
+"Björn-Olde Backhaus",
+"Carsten Bensemann",
+"Carsten Fraszczak",
+"Carsten Meyer",
+"Carsten Wilke",
+"Carsten Wittkop",
+"Cliff Parnitzky",
+"Daniel Siedka",
+"Daniel Wiegel",
+"Detlef Barber",
+"Detlef Trochemowitz",
+"Dieter Zielinski",
+"Dirk Meyer",
+"Frank Reimann",
+"Gabriel Schaefer",
+"Gesine Lickfett",
+"Henno Garbers",
+"Hinrich Bonin",
+"Jonathan Pargätzi",
+"Jörg Hohmann",
+"Jörg Silex",
+"Julian Radzinski",
+"Kai Kruse",
+"Karol Lalla",
+"Karsten Busse",
+"Klaus-Dieter Stein",
+"Maik Bockelmann",
+"Maik Szodruch",
+"Marc Uphoff",
+"Markus Kopp-Jachner",
+"Markus von Bargen",
+"Martin Beuss",
+"Michael Hempell",
+"Michael Nottebohm",
+"Michael Tiemann",
+"Oliver Lukas",
+"Paul Lauer",
+"Peer Kobbel",
+"Peter Sorg",
+"Ralf Plümer",
+"Ralf Stolt",
+"Ronny von Bresinski",
+"Sebastian Hanisch",
+"Stefan Burmester",
+"Stefan Enzl",
+"Stefan Kleidon",
+"Stefan Preuß",
+"Sven Ole Wall",
+"Thomas Buller",
+"Thomas Pöthe",
+"Thorsten Boknecht",
+"Thorleiv Werner");
+
+
+function getMemberSelectBox(array) {
+	var select = document.createElement("select");
+	var option = null;
+	for (var i = 0; i < array.length; i++) {
+		option = document.createElement("option");
+		option.value = array[i];
+		option.appendChild(document.createTextNode(array[i]));
+		select.appendChild(option);
+	}
+	return select;
+}
+
+// -->
+</script>
+</html>
