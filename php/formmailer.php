@@ -1,6 +1,6 @@
 <?php
-$email = "results@rsc-lueneburg.de";
-$admin = "results@rsc-lueneburg.de";
+$email = "mail@domain.com";
+$admin = "mail@domain.com";
 $subject = "Ergebnismeldung";
 $message = "";
 
