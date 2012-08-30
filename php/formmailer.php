@@ -18,5 +18,7 @@ while(list($name,$value)=each($_POST)) {
 	$message.="$name:\t\t$value\n";
 }
 
-mail($admin,$subject,$message,"From: $email");
+if (strlen($message) > 0) {
+	mail($admin,$subject,$message,"From: $email");
+}
 ?>SEND
