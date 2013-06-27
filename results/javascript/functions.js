@@ -724,6 +724,11 @@ function moveCompetitionDown(srcButton) {
 }
 
 function addCompetitionTemplateValues (select) {
+	var optionEmpty = document.createElement("option");
+	optionEmpty.value = "";
+	optionEmpty.appendChild(document.createTextNode(">>> Vorlage auswählen"));
+	select.appendChild(optionEmpty);
+	
 	var optGroup = document.createElement("optgroup");
 	optGroup.label = "Vorlagenauswahl ..."
 	
@@ -738,7 +743,7 @@ function addCompetitionTemplateValues (select) {
 	select.appendChild(optGroup);
 }
 
-var competitionTemplates = new Array("",
+var competitionTemplates = new Array(
 "SD (0,5 km - 20 km - 5 km)",
 "OD (1,5 km - 40 km - 10 km)",
 "MD (2 km - 80 km - 20 km)",
