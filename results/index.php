@@ -1,17 +1,27 @@
+<?php
+
+$jsonurl = "https://api.trello.com/1/lists/4fd317c79dfbd66e10e9f30f?fields=name&cards=open&card_fields=name&key=1048b364a775a469686d4a8a1670fb73";
+$json = file_get_contents($jsonurl,0,null,null);
+$json_output = json_decode($json);
+
+?>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 	<meta http-equiv="content-language" content="de" />
-	<title>Ergebsnislisten - Generator</title>
+	<title>Ergebnislisten - Generator</title>
 
 	<!-- script src="javascript/user.js" type="text/javascript"></script -->
-	<script src="http://new.rsc-lueneburg.de/tl_files/result_list_generator/user.js" type="text/javascript"></script>
+	<script src="http://new.rsc-lueneburg.de/tl_files/results/_external/user.js" type="text/javascript"></script>
 	<script src="javascript/functions.js" type="text/javascript"></script>
 	
 	<link rel="stylesheet" href="css/layout.css" type="text/css" />
+	
+	<link rel="icon" type="image/vnd.microsoft.icon" href="pics/favicon.ico" />
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="pics/favicon.ico" />
 </head>
 <body id="body" onload="addCompetition();">
-	<h2>Ergebsnislisten - Generator</h2>
+	<h2>Ergebnislisten - Generator</h2>
 	<!-- Competition -->
 	<fieldset>
 	<legend>Datum / Wettkampf</legend>
@@ -21,7 +31,7 @@
 		&nbsp;:&nbsp;
 		<input id="competition" type="text" size="50" title="Name des Wettkampfs"/>
 		<select title="Vorlagenauswahl für den Wettkampfnamen, kann dann noch angepasst werden" onChange="document.getElementById('competition').value = this.options[this.selectedIndex].value;">
-			<option value=""></option>
+			<option value="">>>> Vorlage auswählen</option>
 			<optgroup label="Schwimm-Events ...">
 				<option value="24-Stunden-Schwimmen Lippstadt">24-Stunden-Schwimmen Lippstadt</option>
 				<option value="24-Stunden-Schwimmen Lüneburg">24-Stunden-Schwimmen Lüneburg</option>
@@ -122,6 +132,7 @@
 				<option value="Challenge Kraichgau">Challenge Kraichgau</option>
 				<option value="Challenge Roth">Challenge Roth</option>
 				<option value="Citytriathlon Schwerin">Citytriathlon Schwerin</option>
+				<option value="Elbe Triathlon">Elbe Triathlon Hamburg</option>
 				<option value="Föhr Triathlon">Föhr Triathlon</option>
 				<option value="Gegen den Wind Thriathlon St.Peter-Ording">Gegen den Wind Thriathlon St.Peter-Ording</option>
 				<option value="Güstrower Triathlon">Güstrower Triathlon</option>
@@ -150,6 +161,7 @@
 				<option value="Junior Challenge Roth">Junior Challenge Roth</option>
 				<option value="Kaliman-Triathlon">Kaliman-Triathlon</option>
 				<option value="Kiel Triathlon">Kiel Triathlon</option>
+				<option value="Kiez-Kinder-Triathlon">Kiez-Kinder-Triathlon</option>
 				<option value="Köln Triathlon">Köln Triathlon</option>
 				<option value="Leipziger LVB Triathlon">Leipziger LVB Triathlon</option>
 				<option value="Maschsee Triathlon Hannover">Maschsee Triathlon Hannover</option>
@@ -199,15 +211,15 @@
 	<!-- Preview -->
 	<fieldset style="float: left; width: 47%;">
 	<legend>Vorschau</legend>
-		<div id="resultHTML" style="overflow: scroll; width: 100%; height: 270px; border: 1px solid black;"/>
+		<div id="resultHTML"/>
 	</fieldset>
 	<!-- Output -->
 	<fieldset style="float: right; width: 47%;">
 	<legend>Generiertes XML</legend>
-		<textarea id="resultXML" style="width: 100%; height: 270px;" readonly="readonly" wrap="off"></textarea>
+		<textarea id="resultXML" readonly="readonly" wrap="off"></textarea>
 	</fieldset>
 	<!-- Action -->
-	<fieldset style="clear: both; text-align: center; height: 50px;">
+	<fieldset style="clear: both; text-align: center;">
 	<legend>Aktionen</legend>
 		<input class="actionBtn" type="button" onclick="document.getElementById('resultXML').value=''; document.getElementById('resultHTML').innerHTML='';" value="Felder leeren" title="Leert die Felder 'Vorschau' und 'Generiertes XML'"/>
 		&nbsp;
@@ -217,16 +229,29 @@
 		&nbsp;
 		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Prüfung der Ergebnismeldung werden diese veröffentlicht."/>
 	</fieldset>
+	<!-- Last send -->
+	<fieldset style="float: left; width: 23%;">
+	<legend>Zuletzt gemeldet</legend>
+		<div id="lastSend">
+		<a href="https://trello.com/b/cG42EkMW/ergebnisse-berichte" target="_blank">Zum Trello Board</a>
+		<ul>
+<?php foreach ($json_output->cards as $card ) : ?>
+			<li><a href="https://trello.com/c/<?php echo $card->id; ?>" target="_blank"><?php echo $card->name; ?></a></li>
+<?php endforeach; ?>
+		</ul>
+		</div>
+	</fieldset>
 	<!-- Help -->
-	<fieldset style="float: left; width: 31%;">
+	<fieldset style="float: left; width: 23%;">
 	<legend>Hilfe</legend>
 		<div id="help">
-		<u name="dnf">Inhalt</u>
+		<u>Inhalt</u>
 		<ul>
 			<li><a href="#send_results">Ergebnisse melden</a></li>
 			<li><a href="#dnf">DNF eintragen</a></li>
 			<li><a href="#publication">Veröffentlichung von Ergebnissen</a></li>
 			<li><a href="#placing_agegroup">Altersklassenwertung</a></li>
+			<li><a href="#relays">Meldung von Staffeln</a></li>
 		</ul>
 		<u id="send_results">Ergebnisse melden</u>
 		<p>Um die Ergebnisse eines Wettkampfs zu melden geht man wie folgt vor:</p>
@@ -247,10 +272,12 @@
 		<p>Die Ergebnismeldung wird nicht automatisch auf der Triathlon Team Seite veröffentlich, sondern vorher geprüft. Es kann also durchaus ein paar Tage dauern, bis Ergebnisse online stehen.</p>
 		<u id="placing_agegroup">Altersklassenwertung</u>
 		<p>Es kann vorkommen, dass ein Veranstalter keine Alterklassewertung anbietet. In diesem Fall muss nur die Checkbox neben "Platz Alterklasse" deselektiert werden. Dann wird die Spalte nicht mehr ausgewertet und auch nciht auf Fehler geprüft.</p>
+		<u id="relays">Meldung von Staffeln</u>
+		<p>Aktuell ist eine Meldung von Staffeln nicht möglich. Bitte dazu das Kommentarfeld im Sendedialog verwenden.</p>
 		</div>
 	</fieldset>
 	<!-- Help -->
-	<fieldset style="float: right; width: 31%;">
+	<fieldset style="float: right; width: 23%;">
 	<legend>ToDo</legend>
 		<div id="todo">
 		<u>Folgenden Dinge sollen noch kommen:</u>
@@ -265,7 +292,7 @@
 		<div id="history">
 			<u>v0.9.9</u>
 			<p>Feldgrößen für Platzierungen angepasst</p>
-			<p>Vorlagen für Wettkamofnamen</p>
+			<p>Vorlagen für Wettkampfnamen</p>
 			<p>Anpassung im Sende Dialog</p>
 
 			<u>v0.9.8</u>

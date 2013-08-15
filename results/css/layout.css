@@ -1,9 +1,10 @@
 body  {
 	width: 1000px;
 	margin: 0 auto;
+	background: url("../pics/background.png") repeat scroll center center transparent
 }
 
-body, table.inputTable, resultHTML, .resultTable {
+body, table.inputTable, .resultTable {
 	font-family: verdana;
 	font-size: 11px;
 }
@@ -20,6 +21,7 @@ a.add, a.del {
 	font-size: 0.8em;
 	padding-left: 2px;
 	padding-right: 2px;
+	background-color: #ffffff;
 }
 
 a.add {
@@ -60,11 +62,7 @@ fieldset {
 }
 
 tr.member:hover {
-	background-color: #f0f0f0;
-}
-
-td.member button {
-	font-size: 15px;
+	background-color: #E4E4E4;
 }
 
 table.inputTable {
@@ -81,12 +79,13 @@ select {
 	width: 200px;
 }
 
-div#history, div#help, div#todo {
+div#lastSend, div#history, div#help, div#todo {
 	padding: 0px 5px 5px 5px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	height: 200px;
-	border: 1px solid black;
+	border: 1px dotted black;
+	background-color: #ffffff;
 }
 
 div#history u, div#help u, div#todo u {
@@ -131,4 +130,23 @@ div#history p:before {
 	padding-left: 5px;
 	float: left;
 	width: 310px;
+}
+
+#resultHTML {
+	overflow: scroll;
+	width: 100%;
+	height: 270px;
+	border: 1px dotted black;
+	background-color: #ffffff;
+}
+
+#resultXML {
+	width: 100%;
+	min-width: 100%;
+	max-width: 100%;
+	height: 270px;
+	min-height: 270px;
+	max-height: 270px;
+	border: 1px dotted black;
+	overflow: scroll;
 }

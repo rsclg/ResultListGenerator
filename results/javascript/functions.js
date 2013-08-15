@@ -217,15 +217,17 @@ function sendResults(xml) {
 		document.getElementById("completenessCheckboxCompetitions").checked && 
 		document.getElementById("completenessCheckboxMembers").checked) {
 	
-		var name = document.getElementById("userSelect").options[document.getElementById("userSelect").selectedIndex].value;
+		var user = document.getElementById("userSelect").options[document.getElementById("userSelect").selectedIndex].value;
+		var competition = document.getElementById("competition").value;
 		var eventType = document.getElementById("eventTypeSelect").options[document.getElementById("eventTypeSelect").selectedIndex].value;
 		var comment = commentTextarea.value;
 
 		var params = new Array();
-		params.push(["1_Name", name]);
-		params.push(["2_Veranstaltungsart", eventType]);
-		params.push(["3_Kommentar", "\n\n" + comment + "\n"]);
-		params.push(["4_XML", "\n\n" + xml]);
+		params.push(["1_Name", user]);
+		params.push(["2_Wettkampfname", competition]);
+		params.push(["3_Veranstaltungsart", eventType]);
+		params.push(["4_Kommentar", "\n\n" + comment + "\n"]);
+		params.push(["5_XML", "\n\n" + xml]);
 		
 		doAjaxRequest("php/formmailer.php", params, function handleAjax(){resultsSendHandler()});
 		
