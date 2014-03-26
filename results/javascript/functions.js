@@ -50,16 +50,18 @@ function reportResults()
 	else if (xml != null && xml.length > 0)
 	{
 		if (document.getElementById("sendDialog") == null) {
+			handleOverlay(true);
+			
 			var dialog = document.createElement("div");
 			dialog.id = "sendDialog";
 			dialog.style.width = "340px";
 			dialog.style.height = "380px";
 			dialog.style.left = "50%";
 			dialog.style.marginLeft = "-150px";
-			dialog.style.position = "absolute";
+			dialog.style.position = "fixed";
 			dialog.style.top = "150px";
-			dialog.style.zIndex = "10";
-			dialog.style.border = "2px solid #000000";
+			dialog.style.zIndex = "10000";
+			dialog.style.border = "2px solid #afafaf";
 			dialog.style.background = "#ffffff";
 			dialog.style.padding = "5px";
 			
@@ -153,7 +155,7 @@ function reportResults()
 					var completenessTextCompetitions = document.createElement("label");
 					completenessTextCompetitions.setAttribute("for", "completenessCheckboxCompetitions");
 					completenessTextCompetitions.setAttribute("class", "completeness");
-					completenessTextCompetitions.innerHTML = "Ja, ich habe <u>alle</u> Wettbewerbe, die stattgefunden haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextCompetitions.innerHTML = "Ja, ich habe <b><u>alle Wettbewerbe</u></b>, die stattgefunden haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
 					completenessLabelCompetitions.appendChild(completenessTextCompetitions);
 				}
 				input.appendChild(completenessLabelCompetitions);
@@ -170,7 +172,7 @@ function reportResults()
 					var completenessTextMembers = document.createElement("label");
 					completenessTextMembers.setAttribute("for", "completenessCheckboxMembers");
 					completenessTextMembers.setAttribute("class", "completeness");
-					completenessTextMembers.innerHTML = "Ja, ich habe <u>alle</u> Vereinsmitglieder, die teilgenommen haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextMembers.innerHTML = "Ja, ich habe <b><u>alle Vereinsmitglieder</u></b>, die teilgenommen haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
 					completenessLabelMembers.appendChild(completenessTextMembers);
 				}
 				input.appendChild(completenessLabelMembers);
@@ -188,7 +190,7 @@ function reportResults()
 				buttonAbort.className = "actionBtn";
 				buttonAbort.type = "button";
 				buttonAbort.value = "Abbrechen";
-				buttonAbort.onclick = function () {document.getElementById("body").removeChild(document.getElementById("sendDialog"));};
+				buttonAbort.onclick = function () {document.getElementById("body").removeChild(document.getElementById("sendDialog")); handleOverlay(false);};
 				buttons.appendChild(buttonAbort);
 				
 				buttons.appendChild(document.createTextNode(" "));
@@ -208,6 +210,53 @@ function reportResults()
 			document.getElementById("userSelect").focus();
 		}
 	}
+}
+
+function handleOverlay(show) {
+	var dialog = document.getElementById("overlay");
+	if (show) {
+		dialog.style.display = "block";
+	} else {
+		dialog.style.display = "none";
+	}
+}
+
+function showHintCheckLastSend() {
+	handleOverlay(true);
+	var lastSend = document.getElementById("lastSend");
+	lastSend.style.zIndex = "10000";
+	lastSend.style.position = "relative";
+	
+	var lastSendTop = lastSend.offsetTop;
+	var lastSendRight = lastSend.offsetLeft + lastSend.offsetWidth;
+	
+	var hint = document.createElement("div");
+	hint.id = "hintCheckLastSend";
+	
+	var text = document.createElement("div");
+	text.id = "hintCheckLastSendText";
+	text.innerHTML = "Erst prüfen,<br>ob für den Wettkampf bereits eine Ergebnismeldung vorliegt!!!";
+	hint.appendChild(text);
+	
+	var buttonWillDo = document.createElement("button");
+	buttonWillDo.className = "actionBtn";
+	buttonWillDo.type = "button";
+	buttonWillDo.onclick = function () {closeHintCheckLastSend();};
+	buttonWillDo.innerHTML = "&#10003;<br/>Ja, werde ich machen!";
+	hint.appendChild(buttonWillDo);
+	
+	document.getElementById("body").appendChild(hint);
+	
+	hint.style.top = (lastSendTop - hint.offsetHeight) + "px";
+	hint.style.left = (lastSendRight - 50) + "px";
+}
+
+function closeHintCheckLastSend() {
+	document.getElementById("body").removeChild(document.getElementById("hintCheckLastSend"));
+	handleOverlay(false);
+	var lastSend = document.getElementById("lastSend");
+	lastSend.style.zIndex = "";
+	lastSend.style.position = "";
 }
 
 function sendResults(xml) {
@@ -232,6 +281,7 @@ function sendResults(xml) {
 		doAjaxRequest("php/formmailer.php", params, function handleAjax(){resultsSendHandler()});
 		
 		document.getElementById("body").removeChild(document.getElementById("sendDialog"));
+		handleOverlay(false);
 	}
 	else {
 		alert("Bitte wähle deinen Namen sowie die Veranstaltungsart aus und bestätige die Vollständigkeit der Ergebnismeldung.");
@@ -243,7 +293,6 @@ function showErrorMsg() {
 	if (errorCount > 0) {
 		alert("Es wurden " + errorCount + " fehlende oder fehlerhafte Eingaben gefunden.\nBitte korrigieren bzw. ergänzen Sie diese Felder!");
 	}
-
 }
 
 function getCompetitions() {

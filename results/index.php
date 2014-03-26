@@ -12,15 +12,15 @@ $json_output = json_decode($json);
 	<title>Ergebnislisten - Generator</title>
 
 	<!-- script src="javascript/user.js" type="text/javascript"></script -->
-	<script src="http://new.rsc-lueneburg.de/tl_files/results/_external/user.js" type="text/javascript"></script>
-	<script src="javascript/functions.js" type="text/javascript"></script>
+	<script src="http://cms.rsc-lueneburg.de/tl_files/results/_external/user.js" type="text/javascript"></script>
+	<script src="javascript/functions.js?1" type="text/javascript"></script>
 	
 	<link rel="stylesheet" href="css/layout.css" type="text/css" />
 	
 	<link rel="icon" type="image/vnd.microsoft.icon" href="pics/favicon.ico" />
 	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="pics/favicon.ico" />
 </head>
-<body id="body" onload="addCompetition();">
+<body id="body" onload="addCompetition(); showHintCheckLastSend();">
 	<h2>Ergebnislisten - Generator</h2>
 	<!-- Competition -->
 	<fieldset>
@@ -248,6 +248,7 @@ $json_output = json_decode($json);
 		<u>Inhalt</u>
 		<ul>
 			<li><a href="#send_results">Ergebnisse melden</a></li>
+			<li><a href="#send_results_video">Ergebnisse melden (Video)</a></li>
 			<li><a href="#dnf">DNF eintragen</a></li>
 			<li><a href="#publication">Veröffentlichung von Ergebnissen</a></li>
 			<li><a href="#placing_agegroup">Altersklassenwertung</a></li>
@@ -266,6 +267,8 @@ $json_output = json_decode($json);
 				<li>Wenn alles eingetragen ist, können die Ergebnisse per Klick auf "Ergebnisse melden" an den Webseiten Administrator gesendet werden. Falls noch Fehöler existieren wird eine Meldung angezeigt.</li>
 			</ol>
 		<p>Alle Eingabefelder, Checkboxen, SelectBoxen und Buttons haben ToolTips die hilfreiche Hinweise zu ihrer jeweiligen Funktion geben.</p>
+		<u id="send_results_video">Ergebnisse melden (Video)</u>
+		<p>Das folgende Video zeigt alle Funktionen: <a href="Ergebis_melden.avi" target="_blank">Ergebis_melden.avi</a></p>
 		<u id="dnf">DNF eintragen</u>
 		<p>Um für einen Starter "DNF" (Did not finish) einzutragen, müssen die Zeiten (Stunden, Minuten und Sekunden) auf "0" gesetzt werden. Dann wird automatisch der Eintrag "DNF (Did not finish)" erzeugt. Die Angabe der Platzierung ist dann nicht mehr notwendig.</p>
 		<u id="publication">Veröffentlichung von Ergebnissen</u>
@@ -354,5 +357,6 @@ $json_output = json_decode($json);
 			<p>Initiale Erstellung</p>
 		</div>
 	</fieldset>
+	<div id="overlay"></div>
 </body>
 </html>
