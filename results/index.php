@@ -12,10 +12,10 @@ $json_output = json_decode($json);
 	<title>Ergebnislisten - Generator</title>
 
 	<!-- script src="javascript/user.js" type="text/javascript"></script -->
-	<script src="http://cms.rsc-lueneburg.de/tl_files/results/_external/user.js" type="text/javascript"></script>
-	<script src="javascript/functions.js?1" type="text/javascript"></script>
+	<script src="http://cms.rsc-lueneburg.de/tl_files/results/_external/user.js?<?php echo date('Ymd'); ?>" type="text/javascript"></script>
+	<script src="javascript/functions.js?<?php echo getlastmod(); ?>" type="text/javascript"></script>
 	
-	<link rel="stylesheet" href="css/layout.css" type="text/css" />
+	<link rel="stylesheet" href="css/layout.css?<?php echo getlastmod(); ?>" type="text/css" />
 	
 	<link rel="icon" type="image/vnd.microsoft.icon" href="pics/favicon.ico" />
 	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="pics/favicon.ico" />
@@ -268,7 +268,7 @@ $json_output = json_decode($json);
 			</ol>
 		<p>Alle Eingabefelder, Checkboxen, SelectBoxen und Buttons haben ToolTips die hilfreiche Hinweise zu ihrer jeweiligen Funktion geben.</p>
 		<u id="send_results_video">Ergebnisse melden (Video)</u>
-		<p>Das folgende Video zeigt alle Funktionen: <a href="Ergebis_melden.avi" target="_blank">Ergebis_melden.avi</a></p>
+		<p>Das folgende Video zeigt alle Funktionen: <a href="Ergebnis_melden.avi" target="_blank">Ergebnis_melden.avi</a></p>
 		<u id="dnf">DNF eintragen</u>
 		<p>Um für einen Starter "DNF" (Did not finish) einzutragen, müssen die Zeiten (Stunden, Minuten und Sekunden) auf "0" gesetzt werden. Dann wird automatisch der Eintrag "DNF (Did not finish)" erzeugt. Die Angabe der Platzierung ist dann nicht mehr notwendig.</p>
 		<u id="publication">Veröffentlichung von Ergebnissen</u>
