@@ -135,7 +135,7 @@ div#history p:before {
 #resultHTML {
 	overflow: scroll;
 	width: 100%;
-	height: 270px;
+	height: 200px;
 	border: 1px dotted black;
 	background-color: #ffffff;
 }
@@ -144,9 +144,9 @@ div#history p:before {
 	width: 100%;
 	min-width: 100%;
 	max-width: 100%;
-	height: 270px;
-	min-height: 270px;
-	max-height: 270px;
+	height: 200px;
+	min-height: 200px;
+	max-height: 200px;
 	border: 1px dotted black;
 	overflow: scroll;
 }
@@ -163,24 +163,38 @@ div#history p:before {
 	z-index: 5000;
 }
 
-#hintCheckLastSend {
-	background: url("../pics/arrow.png") no-repeat scroll left top rgba(0, 0, 0, 0);
-	height: 350px;
+.hint {
 	position: absolute;
-	width: 800px;
 	z-index: 10000;
 }
 
-#hintCheckLastSend .actionBtn {
+.hint .actionBtn {
+	border: 5px inset;
+	border-radius: 15px 15px 15px 15px;
 	bottom: 20px;
 	color: #339900;
-	font-size: 26px;
+	font-size: 24px;
 	font-weight: bold;
 	height: 86px;
 	margin: 0 auto;
 	position: absolute;
 	right: 10px;
 	width: 300px;
+}
+
+.hint a {
+	color: #005500;
+	text-decoration: none;
+	text-shadow: 3px 3px 3px #FFFFFF;
+}
+
+.hint a:hover {
+	border-bottom: 2px solid #ffffff;
+}
+#hintCheckLastSend {
+	background: url("../pics/arrow.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+	height: 350px;
+	width: 800px;
 }
 
 #hintCheckLastSendText {
@@ -191,5 +205,22 @@ div#history p:before {
 	position: absolute;
 	text-align: center;
 	top: 72px;
+	width: 335px;
+}
+
+#hintReadHelp {
+	background: url("../pics/arrow.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+	height: 400px;
+	width: 700px;
+}
+
+#hintReadHelpText {
+	color: #FFFFFF;
+	font-size: 21px;
+	font-weight: bold;
+	left: 165px;
+	position: absolute;
+	text-align: center;
+	top: 90px;
 	width: 335px;
 }

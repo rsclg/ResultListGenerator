@@ -224,14 +224,20 @@ function handleOverlay(show) {
 function showHintCheckLastSend() {
 	handleOverlay(true);
 	var lastSend = document.getElementById("lastSend");
-	lastSend.style.zIndex = "10000";
-	lastSend.style.position = "relative";
-	
+
 	var lastSendTop = lastSend.offsetTop;
 	var lastSendRight = lastSend.offsetLeft + lastSend.offsetWidth;
+
+	lastSend.style.border = "10px solid #FFFFBD";
+	lastSend.style.borderRadius = "15px";
+	lastSend.style.boxShadow = "0 0 84px #FFFFBD";
+	lastSend.style.position = "absolute";
+	lastSend.style.width = "300px";
+	lastSend.style.zIndex = "10000";
 	
 	var hint = document.createElement("div");
 	hint.id = "hintCheckLastSend";
+	hint.className = "hint";
 	
 	var text = document.createElement("div");
 	text.id = "hintCheckLastSendText";
@@ -248,15 +254,67 @@ function showHintCheckLastSend() {
 	document.getElementById("body").appendChild(hint);
 	
 	hint.style.top = (lastSendTop - hint.offsetHeight) + "px";
-	hint.style.left = (lastSendRight - 50) + "px";
+	hint.style.left = (lastSendRight - 150) + "px";
 }
 
 function closeHintCheckLastSend() {
 	document.getElementById("body").removeChild(document.getElementById("hintCheckLastSend"));
-	handleOverlay(false);
 	var lastSend = document.getElementById("lastSend");
-	lastSend.style.zIndex = "";
+	lastSend.style.border = "";
+	lastSend.style.borderRadius = "";
+	lastSend.style.boxShadow = "";
 	lastSend.style.position = "";
+	lastSend.style.width = "";
+	lastSend.style.zIndex = "";
+	
+	showHintReadHelp();
+}
+
+function showHintReadHelp() {
+	var help = document.getElementById("help");
+
+	var helpTop = help.offsetTop;
+	var helpRight = help.offsetLeft + help.offsetWidth;
+	
+	help.style.border = "10px solid #FFFFBD";
+	help.style.borderRadius = "15px";
+	help.style.boxShadow = "0 0 84px #FFFFBD";
+	help.style.position = "absolute";
+	help.style.width = "300px";
+	help.style.zIndex = "10000";
+	
+	var hint = document.createElement("div");
+	hint.id = "hintReadHelp";
+	hint.className = "hint";
+	
+	var text = document.createElement("div");
+	text.id = "hintReadHelpText";
+	text.innerHTML = "Kein Plan?<br/>Dann die Hilfe lesen!!!<br/>Oder das <a href=\"Ergebnis_melden.avi\" target=\"_blank\">Video</a> ansehen!!!";
+	hint.appendChild(text);
+	
+	var buttonWillDo = document.createElement("button");
+	buttonWillDo.className = "actionBtn";
+	buttonWillDo.type = "button";
+	buttonWillDo.onclick = function () {closeHintReadHelp();};
+	buttonWillDo.innerHTML = "&#10003;<br/>Ja, werde ich machen!";
+	hint.appendChild(buttonWillDo);
+	
+	document.getElementById("body").appendChild(hint);
+	
+	hint.style.top = (helpTop - hint.offsetHeight + 50) + "px";
+	hint.style.left = (helpRight - 150) + "px";
+}
+
+function closeHintReadHelp() {
+	document.getElementById("body").removeChild(document.getElementById("hintReadHelp"));
+	handleOverlay(false);
+	var help = document.getElementById("help");
+	help.style.border = "";
+	help.style.borderRadius = "";
+	help.style.boxShadow = "";
+	help.style.position = "";
+	help.style.width = "";
+	help.style.zIndex = "";
 }
 
 function sendResults(xml) {
