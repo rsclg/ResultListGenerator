@@ -54,8 +54,8 @@ function reportResults()
 			
 			var dialog = document.createElement("div");
 			dialog.id = "sendDialog";
-			dialog.style.width = "340px";
-			dialog.style.height = "380px";
+			dialog.style.width = "380px";
+			dialog.style.height = "400px";
 			dialog.style.left = "50%";
 			dialog.style.marginLeft = "-150px";
 			dialog.style.position = "fixed";
@@ -72,7 +72,7 @@ function reportResults()
 			dialog.appendChild(headline);
 
 			var input = document.createElement("div");
-			input.style.height = "320px";
+			input.style.height = "340px";
 			input.style.marginTop = "10px";
 			input.style.marginBottom = "10px";
 			
@@ -122,8 +122,12 @@ function reportResults()
 
 				var commentTextarea = document.createElement("textarea");
 				commentTextarea.id = "commentTextarea";
-				commentTextarea.style.width = "340px";
+				commentTextarea.style.width = "380px";
+				commentTextarea.style.maxWidth = "380px";
+				commentTextarea.style.minWidth = "380px";
 				commentTextarea.style.height = "100px";
+				commentTextarea.style.maxHeight = "100px";
+				commentTextarea.style.minHeight = "100px";
 				input.appendChild(commentTextarea);
 
 				var completenessLabelGeneral = document.createElement("div");
@@ -176,6 +180,11 @@ function reportResults()
 					completenessLabelMembers.appendChild(completenessTextMembers);
 				}
 				input.appendChild(completenessLabelMembers);
+				
+				var infoMandatory = document.createElement("div");
+				infoMandatory.setAttribute("class", "info");
+				infoMandatory.innerHTML = "<span class=\"mandatory\">*</span> mit einem roten Stern gekennzeichnete Felder sind Pflichtfelder";
+				input.appendChild(infoMandatory);
 				
 			}
 			

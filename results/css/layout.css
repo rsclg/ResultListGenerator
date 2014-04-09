@@ -115,7 +115,8 @@ div#history p:before {
 	cursor: help;
 }
 
-#sendDialog div.completeness {
+#sendDialog div.completeness,
+#sendDialog div.info {
 	float: left;
 	clear: both;
 	font-style: italic;
