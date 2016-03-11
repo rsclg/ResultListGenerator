@@ -12,7 +12,7 @@ $json_output = json_decode($json);
 	<title>Ergebnislisten - Generator</title>
 
 	<!-- script src="javascript/user.js" type="text/javascript"></script -->
-	<script src="http://cms.rsc-lueneburg.de/tl_files/results/_external/user.js?<?php echo date('Ymd'); ?>" type="text/javascript"></script>
+	<script src="http://intranet.rsc-lueneburg.de/tl_files/results/_external/user.js?<?php echo date('Ymd'); ?>" type="text/javascript"></script>
 	<script src="javascript/functions.js?<?php echo getlastmod(); ?>" type="text/javascript"></script>
 	
 	<link rel="stylesheet" href="css/layout.css?<?php echo getlastmod(); ?>" type="text/css" />
