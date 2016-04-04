@@ -264,7 +264,7 @@ $json_output = json_decode($json);
 				<li>Falls es bei der Veranstaltung mehr als einen Wettbewerb gab, kann mit dem "+" hinter "Wettbewerbe" ein weiterer Eingabebereich für einen Wettbewerb angelegt werden. Danach Punkt 2-4 wiederholen.</li>
 				<li>Durch die Pfeiltasten an den Wettbewerben können diese in der Reihenfolgen verändert werden. Am Besten befinden sich oben die kurzen Distanzen und nach unten werden sie immer länger.</li>
 				<li>Durch die Pfeiltasten Startern kann auch hier die Reihenfolge geändert werden. Sie soll immer von oben nach unten der Reihenfolgen im Gesmatklassement entsprechen.</li>
-				<li>Wenn alles eingetragen ist, können die Ergebnisse per Klick auf "Ergebnisse melden" an den Webseiten Administrator gesendet werden. Falls noch Fehöler existieren wird eine Meldung angezeigt.</li>
+				<li>Wenn alles eingetragen ist, können die Ergebnisse per Klick auf "Ergebnisse melden" an den Webseiten Administrator gesendet werden. Falls noch Fehler existieren wird eine Meldung angezeigt.</li>
 			</ol>
 		<p>Alle Eingabefelder, Checkboxen, SelectBoxen und Buttons haben ToolTips die hilfreiche Hinweise zu ihrer jeweiligen Funktion geben.</p>
 		<u id="send_results_video">Ergebnisse melden (Video)</u>
