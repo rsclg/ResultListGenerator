@@ -1,6 +1,6 @@
 <?php
 
-$jsonurl = "https://api.trello.com/1/lists/4fd317c79dfbd66e10e9f30f?fields=name&cards=open&card_fields=name&key=1048b364a775a469686d4a8a1670fb73";
+$jsonurl = "";
 $json = file_get_contents($jsonurl,0,null,null);
 $json_output = json_decode($json);
 
@@ -12,7 +12,7 @@ $json_output = json_decode($json);
 	<title>Ergebnislisten - Generator</title>
 
 	<!-- script src="javascript/user.js" type="text/javascript"></script -->
-	<script src="http://intranet.rsc-lueneburg.de/tl_files/results/_external/user.js?<?php echo date('Ymd'); ?>" type="text/javascript"></script>
+	<script src="http://rsc-lueneburg.de/files/results/_external/user.js?<?php echo date('Ymd'); ?>" type="text/javascript"></script>
 	<script src="javascript/functions.js?<?php echo getlastmod(); ?>" type="text/javascript"></script>
 	
 	<link rel="stylesheet" href="css/layout.css?<?php echo getlastmod(); ?>" type="text/css" />
@@ -30,36 +30,36 @@ $json_output = json_decode($json);
 		<input id="dateYear" type="text" class="small_4" maxlength="4" title="Datum des Wettkampfs: Jahr"/>
 		&nbsp;:&nbsp;
 		<input id="competition" type="text" size="50" title="Name des Wettkampfs"/>
-		<select title="Vorlagenauswahl für den Wettkampfnamen, kann dann noch angepasst werden" onChange="document.getElementById('competition').value = this.options[this.selectedIndex].value;">
-			<option value="">>>> Vorlage auswählen</option>
+		<select title="Vorlagenauswahl fÃ¼r den Wettkampfnamen, kann dann noch angepasst werden" onChange="document.getElementById('competition').value = this.options[this.selectedIndex].value;">
+			<option value="">>>> Vorlage auswÃ¤hlen</option>
 			<optgroup label="Schwimm-Events ...">
 				<option value="24-Stunden-Schwimmen Lippstadt">24-Stunden-Schwimmen Lippstadt</option>
-				<option value="24-Stunden-Schwimmen Lüneburg">24-Stunden-Schwimmen Lüneburg</option>
+				<option value="24-Stunden-Schwimmen LÃ¼neburg">24-Stunden-Schwimmen LÃ¼neburg</option>
 				<option value="Clausthal-Zellerfelder 24 Stunden-Schwimmen">Clausthal-Zellerfelder 24 Stunden-Schwimmen</option>
-				<option value="Glücksburger Förde-Crossing">Glücksburger Förde-Crossing</option>
-				<option value="Lüchower Stundenschwimmen">Lüchower Stundenschwimmen</option>
+				<option value="GlÃ¼cksburger FÃ¶rde-Crossing">GlÃ¼cksburger FÃ¶rde-Crossing</option>
+				<option value="LÃ¼chower Stundenschwimmen">LÃ¼chower Stundenschwimmen</option>
 				<option value="Sehnder Stichkanalschwimmen">Sehnder Stichkanalschwimmen</option>
 				<option value="Wilhelmshavener Leuchtturmschwimmen">Wilhelmshavener Leuchtturmschwimmen</option>
 			</optgroup>
 			<optgroup label="Radfahr-Events ...">
 				<option value="Bad Harzburger Bike-Marathon">Bad Harzburger Bike-Marathon</option>
-				<option value="Bike Day Lüneburg">Bike Day Lüneburg</option>
+				<option value="Bike Day LÃ¼neburg">Bike Day LÃ¼neburg</option>
 				<option value="Buchholzer Stevens Cup">Buchholzer Stevens Cup</option>
 				<option value="Cyclassics Hamburg">Cyclassics Hamburg</option>
 				<option value="Harzer MTB-Event Marathon">Harzer MTB-Event Marathon</option>
-				<option value="Helmuts Höllenritt">Helmuts Höllenritt</option>
+				<option value="Helmuts HÃ¶llenritt">Helmuts HÃ¶llenritt</option>
 				<option value="MTB Marathon Braunlage">MTB Marathon Braunlage</option>
 				<option value="MTB Marathon Clausthal-Zellerfeld">MTB Marathon Clausthal-Zellerfeld</option>
-				<option value="Ötztaler Radmarathon Sölden">Ötztaler Radmarathon Sölden</option>
+				<option value="Ã–tztaler Radmarathon SÃ¶lden">Ã–tztaler Radmarathon SÃ¶lden</option>
 				<option value="Peak Break">Peak Break</option>
 				<option value="Race to Sky">Race to Sky</option>
 				<option value="Ruhrbike-Festival">Ruhrbike-Festival</option>
 				<option value="Stunde von Banzau">Stunde von Banzau</option>
-				<option value="Vätternrundan Schweden">Vätternrundan Schweden</option>
+				<option value="VÃ¤tternrundan Schweden">VÃ¤tternrundan Schweden</option>
 				<option value="Velothon Berlin">Velothon Berlin</option>
 			</optgroup>
 			<optgroup label="Lauf-Events ...">
-				<option value="6-Stunden-Lauf Nürnberg">6-Stunden-Lauf Nürnberg</option>
+				<option value="6-Stunden-Lauf NÃ¼rnberg">6-Stunden-Lauf NÃ¼rnberg</option>
 				<option value="Ashausen Cross">Ashausen Cross</option>
 				<option value="Berlin Marathon">Berlin Marathon</option>
 				<option value="BIG 25 Berlin">BIG 25 Berlin</option>
@@ -71,41 +71,41 @@ $json_output = json_decode($json);
 				<option value="Drestedter Siebenmeilenstiefellauf">Drestedter Siebenmeilenstiefellauf</option>
 				<option value="Ebstorfer Winter-Volkslauf">Ebstorfer Winter-Volkslauf</option>
 				<option value="Echemer Dorflauf">Echemer Dorflauf</option>
-				<option value="Energie-Südwest Cup Landau-Nußdorf">Energie-Südwest Cup Landau-Nußdorf</option>
+				<option value="Energie-SÃ¼dwest Cup Landau-NuÃŸdorf">Energie-SÃ¼dwest Cup Landau-NuÃŸdorf</option>
 				<option value="Fisherman`s Friend Strongman Run">Fisherman`s Friend Strongman Run</option>
 				<option value="Halbmarathon Hall-Wattens (Tirol)">Halbmarathon Hall-Wattens (Tirol)</option>
 				<option value="Hamburg Marathon">Hamburg Marathon</option>
 				<option value="Harzquerung">Harzquerung</option>
 				<option value="Heide-Elbe-Ultralauf">Heide-Elbe-Ultralauf</option>
-				<option value="Heideköniginnenpokal">Heideköniginnenpokal</option>
+				<option value="HeidekÃ¶niginnenpokal">HeidekÃ¶niginnenpokal</option>
 				<option value="Herbstlauf TSV Gellersen">Herbstlauf TSV Gellersen</option>
 				<option value="Herbstlauf Westergellersen">Herbstlauf Westergellersen</option>
-				<option value="Hitzacker Herbsthärte">Hitzacker Herbsthärte</option>
+				<option value="Hitzacker HerbsthÃ¤rte">Hitzacker HerbsthÃ¤rte</option>
 				<option value="Ilmenaulauf Bad Bevensen">Ilmenaulauf Bad Bevensen</option>
 				<option value="Junkernhof-Lauf">Junkernhof-Lauf</option>
-				<option value="Köln Marathon">Köln Marathon</option>
-				<option value="König Ludwig Lauf">König Ludwig Lauf</option>
-				<option value="Lüneburger Firmenlauf">Lüneburger Firmenlauf</option>
+				<option value="KÃ¶ln Marathon">KÃ¶ln Marathon</option>
+				<option value="KÃ¶nig Ludwig Lauf">KÃ¶nig Ludwig Lauf</option>
+				<option value="LÃ¼neburger Firmenlauf">LÃ¼neburger Firmenlauf</option>
 				<option value="Marathon Hannover">Marathon Hannover</option>
 				<option value="Marathon Mainz">Marathon Mainz</option>
-				<option value="Müritz-Lauf">Müritz-Lauf</option>
+				<option value="MÃ¼ritz-Lauf">MÃ¼ritz-Lauf</option>
 				<option value="Nachtlauf Hamburg">Nachtlauf Hamburg</option>
 				<option value="Nordenhamer Citylauf">Nordenhamer Citylauf</option>
 				<option value="North Sea Beach Marathon">North Sea Beach Marathon</option>
 				<option value="Ratzeburger Adventslauf">Ratzeburger Adventslauf</option>
 				<option value="Rotenburger Oster-Volkslauf (Rotenburg a.d. Fulda)">Rotenburger Oster-Volkslauf (Rotenburg a.d. Fulda)</option>
 				<option value="Rottorfer Volkslauf">Rottorfer Volkslauf</option>
-				<option value="Salzewerlauf Lüneburg">Salzewerlauf Lüneburg</option>
+				<option value="Salzewerlauf LÃ¼neburg">Salzewerlauf LÃ¼neburg</option>
 				<option value="Schiffshebewerksvolkslauf Scharnebeck">Schiffshebewerksvolkslauf Scharnebeck</option>
 				<option value="Schweriner Nachtlauf">Schweriner Nachtlauf</option>
 				<option value="Ostseelauf Timmendorfer Strand">Ostseelauf Timmendorfer Strand</option>
 				<option value="SportScheck Nachtlauf Hamburg">SportScheck Nachtlauf Hamburg</option>
 				<option value="Stadt- und Deichlauf Winsen">Stadt- und Deichlauf Winsen</option>
-				<option value="Stadtlauf Lüneburg">Stadtlauf Lüneburg</option>
+				<option value="Stadtlauf LÃ¼neburg">Stadtlauf LÃ¼neburg</option>
 				<option value="Swissalpine Davos">Swissalpine Davos</option>
 				<option value="Syltlauf">Syltlauf</option>
 				<option value="Tangendorfer Volkslauf">Tangendorfer Volkslauf</option>
-				<option value="Tiergarten-Volkslauf Lüneburg">Tiergarten-Volkslauf Lüneburg</option>
+				<option value="Tiergarten-Volkslauf LÃ¼neburg">Tiergarten-Volkslauf LÃ¼neburg</option>
 				<option value="Volkslauf Jesteburg">Volkslauf Jesteburg</option>
 				<option value="Volkslauf TSV Adendorf">Volkslauf TSV Adendorf</option>
 				<option value="Volkswaldlauf Borstel">Volkswaldlauf Borstel</option>
@@ -114,35 +114,35 @@ $json_output = json_decode($json);
 			</optgroup>
 			<optgroup label="Duathlon ...">
 				<option value="Crossduathlon Meudelfitz">Crossduathlon Meudelfitz</option>
-				<option value="Duathlon Scheeßel">Duathlon Scheeßel</option>
+				<option value="Duathlon ScheeÃŸel">Duathlon ScheeÃŸel</option>
 				<option value="Eifeler Crossduathlon">Eifeler Crossduathlon</option>
 				<option value="Gartower Seeduathlon">Gartower Seeduathlon</option>
-				<option value="Güstrower Cross-Duathlon">Güstrower Cross-Duathlon</option>
-				<option value="Müritz Duathlon Waren">Müritz Duathlon Waren</option>
+				<option value="GÃ¼strower Cross-Duathlon">GÃ¼strower Cross-Duathlon</option>
+				<option value="MÃ¼ritz Duathlon Waren">MÃ¼ritz Duathlon Waren</option>
 				<option value="Osterduathlon Godern">Osterduathlon Godern</option>
-				<option value="Scheeßeler Volks-Duathlon">Scheeßeler Volks-Duathlon</option>
+				<option value="ScheeÃŸeler Volks-Duathlon">ScheeÃŸeler Volks-Duathlon</option>
 				<option value="Swim and Run Elmshorn">Swim and Run Elmshorn</option>
 			</optgroup>
 			<optgroup label="Triathlon ...">
 				<option value="Achimer Triathlon">Achimer Triathlon</option>
 				<option value="Alpen Triathlon Schliersee">Alpen Triathlon Schliersee</option>
 				<option value="Bonn Triathlon">Bonn Triathlon</option>
-				<option value="Büchener Triathlon">Büchener Triathlon</option>
+				<option value="BÃ¼chener Triathlon">BÃ¼chener Triathlon</option>
 				<option value="Celler Triathlon">Celler Triathlon</option>
 				<option value="Challenge Kraichgau">Challenge Kraichgau</option>
 				<option value="Challenge Roth">Challenge Roth</option>
 				<option value="Citytriathlon Schwerin">Citytriathlon Schwerin</option>
 				<option value="Elbe Triathlon">Elbe Triathlon Hamburg</option>
-				<option value="Föhr Triathlon">Föhr Triathlon</option>
+				<option value="FÃ¶hr Triathlon">FÃ¶hr Triathlon</option>
 				<option value="Gegen den Wind Thriathlon St.Peter-Ording">Gegen den Wind Thriathlon St.Peter-Ording</option>
-				<option value="Güstrower Triathlon">Güstrower Triathlon</option>
+				<option value="GÃ¼strower Triathlon">GÃ¼strower Triathlon</option>
 				<option value="Hachede Triathlon">Hachede Triathlon</option>
 				<option value="Hamburg Triathlon">Hamburg Triathlon</option>
 				<option value="Hamelner Triathlon">Hamelner Triathlon</option>
 				<option value="Harsewinkel-Triathlon">Harsewinkel-Triathlon</option>
 				<option value="Harz Triathlon">Harz Triathlon</option>
 				<option value="Herrenkoog-Triathlon">Herrenkoog-Triathlon</option>
-				<option value="Hückeswagener Triathlon">Hückeswagener Triathlon</option>
+				<option value="HÃ¼ckeswagener Triathlon">HÃ¼ckeswagener Triathlon</option>
 				<option value="IM 70.3 Wiesbaden">IM 70.3 Wiesbaden</option>
 				<option value="Inseltriathlon Ratzeburg">Inseltriathlon Ratzeburg</option>
 				<option value="Ironman 70.3 Austria">Ironman 70.3 Austria</option>
@@ -162,17 +162,17 @@ $json_output = json_decode($json);
 				<option value="Kaliman-Triathlon">Kaliman-Triathlon</option>
 				<option value="Kiel Triathlon">Kiel Triathlon</option>
 				<option value="Kiez-Kinder-Triathlon">Kiez-Kinder-Triathlon</option>
-				<option value="Köln Triathlon">Köln Triathlon</option>
+				<option value="KÃ¶ln Triathlon">KÃ¶ln Triathlon</option>
 				<option value="Leipziger LVB Triathlon">Leipziger LVB Triathlon</option>
 				<option value="Maschsee Triathlon Hannover">Maschsee Triathlon Hannover</option>
-				<option value="Midsummer-Triathlon Großensee">Midsummer-Triathlon Großensee</option>
-				<option value="Münster City Triathlon">Münster City Triathlon</option>
+				<option value="Midsummer-Triathlon GroÃŸensee">Midsummer-Triathlon GroÃŸensee</option>
+				<option value="MÃ¼nster City Triathlon">MÃ¼nster City Triathlon</option>
 				<option value="Munsteraner Triathlon">Munsteraner Triathlon</option>
-				<option value="Mürtiz Triathlon Waren">Mürtiz Triathlon Waren</option>
+				<option value="MÃ¼rtiz Triathlon Waren">MÃ¼rtiz Triathlon Waren</option>
 				<option value="Nordseeman Wilhelmshaven">Nordseeman Wilhelmshaven</option>
-				<option value="Oldenburger Bärentriathlon">Oldenburger Bärentriathlon</option>
+				<option value="Oldenburger BÃ¤rentriathlon">Oldenburger BÃ¤rentriathlon</option>
 				<option value="O-See-Triathlon Uelzen">O-See-Triathlon Uelzen</option>
-				<option value="Ostseeman Glücksburg">Ostseeman Glücksburg</option>
+				<option value="Ostseeman GlÃ¼cksburg">Ostseeman GlÃ¼cksburg</option>
 				<option value="Paderborner City Triathlon">Paderborner City Triathlon</option>
 				<option value="Peiner Triathlon">Peiner Triathlon</option>
 				<option value="Pellwormer Trifun">Pellwormer Trifun</option>
@@ -194,9 +194,9 @@ $json_output = json_decode($json);
 				<option value="Triathlon Bokeloh">Triathlon Bokeloh</option>
 				<option value="Triathlon Dahlenburg">Triathlon Dahlenburg</option>
 				<option value="TriStar Worms Germany">TriStar Worms Germany</option>
-				<option value="Türme Triathlon Lübeck">Türme Triathlon Lübeck</option>
+				<option value="TÃ¼rme Triathlon LÃ¼beck">TÃ¼rme Triathlon LÃ¼beck</option>
 				<option value="Vierlanden Triathlon">Vierlanden Triathlon</option>
-				<option value="Wa(h)ltriathlon Brunsbüttel">Wa(h)ltriathlon Brunsbüttel</option>
+				<option value="Wa(h)ltriathlon BrunsbÃ¼ttel">Wa(h)ltriathlon BrunsbÃ¼ttel</option>
 				<option value="Wasserstadt Triathlon Hannover-Limmer">Wasserstadt Triathlon Hannover-Limmer</option>
 				<option value="Wendland-Triathlon">Wendland-Triathlon</option>
 				<option value="Wolfsburger Triathlon">Wolfsburger Triathlon</option>
@@ -206,7 +206,7 @@ $json_output = json_decode($json);
 	</fieldset>
 	
 	<!-- Competitions -->
-	<fieldset id="competitions"><legend>Wettbewerbe <a href="javascript:addCompetition();" class="add" title="Wettbewerb hinzufügen">+</a> <a href="javascript:delCompetition();" class="del" title="Letzten Wettbewerb löschen">X</a></legend></fieldset>
+	<fieldset id="competitions"><legend>Wettbewerbe <a href="javascript:addCompetition();" class="add" title="Wettbewerb hinzufÃ¼gen">+</a> <a href="javascript:delCompetition();" class="del" title="Letzten Wettbewerb lÃ¶schen">X</a></legend></fieldset>
 	
 	<!-- Preview -->
 	<fieldset style="float: left; width: 47%;">
@@ -225,9 +225,9 @@ $json_output = json_decode($json);
 		&nbsp;
 		<input class="actionBtn" type="button" onclick="generateHTML(); showErrorMsg();" value="Vorschau" title="Erzeugt anhand der eingegebenen Daten eine Vorschau"/>
 		&nbsp;
-		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code für den Web Content"/>
+		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code fÃ¼r den Web Content"/>
 		&nbsp;
-		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Prüfung der Ergebnismeldung werden diese veröffentlicht."/>
+		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer PrÃ¼fung der Ergebnismeldung werden diese verÃ¶ffentlicht."/>
 	</fieldset>
 	<!-- Last send -->
 	<fieldset style="float: left; width: 23%;">
@@ -250,7 +250,7 @@ $json_output = json_decode($json);
 			<li><a href="#send_results">Ergebnisse melden</a></li>
 			<li><a href="#send_results_video">Ergebnisse melden (Video)</a></li>
 			<li><a href="#dnf">DNF eintragen</a></li>
-			<li><a href="#publication">Veröffentlichung von Ergebnissen</a></li>
+			<li><a href="#publication">VerÃ¶ffentlichung von Ergebnissen</a></li>
 			<li><a href="#placing_agegroup">Altersklassenwertung</a></li>
 			<li><a href="#relays">Meldung von Staffeln</a></li>
 		</ul>
@@ -258,25 +258,25 @@ $json_output = json_decode($json);
 		<p>Um die Ergebnisse eines Wettkampfs zu melden geht man wie folgt vor:</p>
 			<ol>
 				<li>Datum (Tag, Monat Jahr) und Name der Veranstaltung im Bereich "Datum / Wettkampf" eintragen</li>
-				<li>Dann den ersten Wettbewerb benennen (Aus der Selectbox hinter dem Namesfeld kann eine Vorlage gewählt werden. Diese wird dann ins Namensfeld übernommen, wo sie noch angepasst werden kann.)</li>
-				<li>Als nächstes alle Starter des Teams mit ihren Zeiten (Stunden, Minuten, Sekunden) und Platzierungen (Platzierung im Gesamtklassement pro Geschlecht, Gesamtzahl Teilnehmer im Gesamtklassement pro Geschlecht, Platzierung in der Altersklasse, Gesamtzahl Teilnehmer in der Altersklasse) für diesen Wettbewerb eintragen.</li>
-				<li>Das Ergebnis erscheint in der Vorschau-Box nach dem Klicken auf den Button "Vorschau". Falls Angaben fehlerhaft oder unvollständig sind wird ein Meldung angezeigt.</li>
-				<li>Falls es bei der Veranstaltung mehr als einen Wettbewerb gab, kann mit dem "+" hinter "Wettbewerbe" ein weiterer Eingabebereich für einen Wettbewerb angelegt werden. Danach Punkt 2-4 wiederholen.</li>
-				<li>Durch die Pfeiltasten an den Wettbewerben können diese in der Reihenfolgen verändert werden. Am Besten befinden sich oben die kurzen Distanzen und nach unten werden sie immer länger.</li>
-				<li>Durch die Pfeiltasten Startern kann auch hier die Reihenfolge geändert werden. Sie soll immer von oben nach unten der Reihenfolgen im Gesmatklassement entsprechen.</li>
-				<li>Wenn alles eingetragen ist, können die Ergebnisse per Klick auf "Ergebnisse melden" an den Webseiten Administrator gesendet werden. Falls noch Fehler existieren wird eine Meldung angezeigt.</li>
+				<li>Dann den ersten Wettbewerb benennen (Aus der Selectbox hinter dem Namesfeld kann eine Vorlage gewÃ¤hlt werden. Diese wird dann ins Namensfeld Ã¼bernommen, wo sie noch angepasst werden kann.)</li>
+				<li>Als nÃ¤chstes alle Starter des Teams mit ihren Zeiten (Stunden, Minuten, Sekunden) und Platzierungen (Platzierung im Gesamtklassement pro Geschlecht, Gesamtzahl Teilnehmer im Gesamtklassement pro Geschlecht, Platzierung in der Altersklasse, Gesamtzahl Teilnehmer in der Altersklasse) fÃ¼r diesen Wettbewerb eintragen.</li>
+				<li>Das Ergebnis erscheint in der Vorschau-Box nach dem Klicken auf den Button "Vorschau". Falls Angaben fehlerhaft oder unvollstÃ¤ndig sind wird ein Meldung angezeigt.</li>
+				<li>Falls es bei der Veranstaltung mehr als einen Wettbewerb gab, kann mit dem "+" hinter "Wettbewerbe" ein weiterer Eingabebereich fÃ¼r einen Wettbewerb angelegt werden. Danach Punkt 2-4 wiederholen.</li>
+				<li>Durch die Pfeiltasten an den Wettbewerben kÃ¶nnen diese in der Reihenfolgen verÃ¤ndert werden. Am Besten befinden sich oben die kurzen Distanzen und nach unten werden sie immer lÃ¤nger.</li>
+				<li>Durch die Pfeiltasten Startern kann auch hier die Reihenfolge geÃ¤ndert werden. Sie soll immer von oben nach unten der Reihenfolgen im Gesamtklassement entsprechen.</li>
+				<li>Wenn alles eingetragen ist, kÃ¶nnen die Ergebnisse per Klick auf "Ergebnisse melden" an den Webseiten Administrator gesendet werden. Falls noch Fehler existieren wird eine Meldung angezeigt.</li>
 			</ol>
-		<p>Alle Eingabefelder, Checkboxen, SelectBoxen und Buttons haben ToolTips die hilfreiche Hinweise zu ihrer jeweiligen Funktion geben.</p>
+		<p>Alle Eingabefelder, Checkboxen, Selectboxen und Buttons haben ToolTips die hilfreiche Hinweise zu ihrer jeweiligen Funktion geben.</p>
 		<u id="send_results_video">Ergebnisse melden (Video)</u>
 		<p>Das folgende Video zeigt alle Funktionen: <a href="Ergebnis_melden.avi" target="_blank">Ergebnis_melden.avi</a></p>
 		<u id="dnf">DNF eintragen</u>
-		<p>Um für einen Starter "DNF" (Did not finish) einzutragen, müssen die Zeiten (Stunden, Minuten und Sekunden) auf "0" gesetzt werden. Dann wird automatisch der Eintrag "DNF (Did not finish)" erzeugt. Die Angabe der Platzierung ist dann nicht mehr notwendig.</p>
-		<u id="publication">Veröffentlichung von Ergebnissen</u>
-		<p>Die Ergebnismeldung wird nicht automatisch auf der Triathlon Team Seite veröffentlich, sondern vorher geprüft. Es kann also durchaus ein paar Tage dauern, bis Ergebnisse online stehen.</p>
+		<p>Um fÃ¼r einen Starter "DNF" (Did not finish) einzutragen, mÃ¼ssen die Zeiten (Stunden, Minuten und Sekunden) auf "0" gesetzt werden. Dann wird automatisch der Eintrag "DNF (Did not finish)" erzeugt. Die Angabe der Platzierung ist dann nicht mehr notwendig.</p>
+		<u id="publication">VerÃ¶ffentlichung von Ergebnissen</u>
+		<p>Die Ergebnismeldung wird nicht automatisch auf der Webseite verÃ¶ffentlicht, sondern vorher geprÃ¼ft. Es kann also durchaus ein paar Tage dauern, bis Ergebnisse online stehen.</p>
 		<u id="placing_agegroup">Altersklassenwertung</u>
-		<p>Es kann vorkommen, dass ein Veranstalter keine Alterklassewertung anbietet. In diesem Fall muss nur die Checkbox neben "Platz Alterklasse" deselektiert werden. Dann wird die Spalte nicht mehr ausgewertet und auch nciht auf Fehler geprüft.</p>
+		<p>Es kann vorkommen, dass ein Veranstalter keine Alterklassewertung anbietet. In diesem Fall muss nur die Checkbox neben "Platz Alterklasse" deselektiert werden. Dann wird die Spalte nicht mehr ausgewertet und auch nicht auf Fehler geprÃ¼ft.</p>
 		<u id="relays">Meldung von Staffeln</u>
-		<p>Aktuell ist eine Meldung von Staffeln nicht möglich. Bitte dazu das Kommentarfeld im Sendedialog verwenden.</p>
+		<p>Aktuell ist eine Meldung von Staffeln nicht mÃ¶glich. Bitte dazu das Kommentarfeld im Sendedialog verwenden.</p>
 		</div>
 	</fieldset>
 	<!-- Help -->
@@ -284,9 +284,9 @@ $json_output = json_decode($json);
 	<legend>ToDo</legend>
 		<div id="todo">
 		<u>Folgenden Dinge sollen noch kommen:</u>
-		<p>- freie Eingabefelder für z.B. Staffel</p>
-		<u>Wünsche / Vorschläge / Hinweise:</u>
-		<p>- bitte per <a href="mailto:mail@tri-team-lueneburg.de?subject=Wünsche / Vorschläge / Hinweise zum Ergebnislistengenerator">Mail</a> senden</p>
+		<p>- freie Eingabefelder fÃ¼r z.B. Staffel</p>
+		<u>WÃ¼nsche / VorschlÃ¤ge / Hinweise:</u>
+		<p>- bitte per <a href="mailto:mail@tri-team-lueneburg.de?subject=WÃ¼nsche / VorschlÃ¤ge / Hinweise zum Ergebnislistengenerator">Mail</a> senden</p>
 		</div>
 	</fieldset>
 	<!-- History -->
@@ -294,40 +294,40 @@ $json_output = json_decode($json);
 	<legend>Historie</legend>
 		<div id="history">
 			<u>v0.9.9</u>
-			<p>Feldgrößen für Platzierungen angepasst</p>
-			<p>Vorlagen für Wettkampfnamen</p>
+			<p>FeldgrÃ¶ÃŸen fÃ¼r Platzierungen angepasst</p>
+			<p>Vorlagen fÃ¼r Wettkampfnamen</p>
 			<p>Anpassung im Sende Dialog</p>
 
 			<u>v0.9.8</u>
-			<p>Fehlerprüfung erweitert (keine Meldung ohne Wettbewerb, keine Meldung mit Wettbewerben ohne Teilnehmer)</p>
-			<p>Dialog zum Senden der Ergebnisse mit Select für Name sowie Veranstaltungsart, Textfeld für Kommentar und Checkbox zur Bestätigung der Vollständigkeit</p>
+			<p>FehlerprÃ¼fung erweitert (keine Meldung ohne Wettbewerb, keine Meldung mit Wettbewerben ohne Teilnehmer)</p>
+			<p>Dialog zum Senden der Ergebnisse mit Select fÃ¼r Name sowie Veranstaltungsart, Textfeld fÃ¼r Kommentar und Checkbox zur BestÃ¤tigung der VollstÃ¤ndigkeit</p>
 
 			<u>v0.9.7</u>
 			<p>Layout angepasst</p>
 			<p>Mail angepasst</p>
-			<p>Code aufgeräumt</p>
+			<p>Code aufgerÃ¤umt</p>
 
 			<u>v0.9.6</u>
 			<p>Platzierungsicons angepasst und mit Tooltip versehen</p>
 
 			<u>v0.9.5</u>
 			<p>Anzeige von DNF wenn alle Zeiten "0"</p>
-			<p>Boxen für Hilfe, Historie und ToDo eingefügt</p>
-			<p>Eingabefelder, Checkboxen, SelectBoxen und Buttons mit ToolTips versehen</p>
+			<p>Boxen fÃ¼r Hilfe, Historie und ToDo eingefÃ¼gt</p>
+			<p>Eingabefelder, Checkboxen, Selectboxen und Buttons mit ToolTips versehen</p>
 			
 			<u>v0.9.4</u>
-			<p>Vorlagen für Wettbewerbe</p>
+			<p>Vorlagen fÃ¼r Wettbewerbe</p>
 			<p>Initial wird 1 Wettbewerb angezeigt</p>
 
 			<u>v0.9.3</u>
 			<p>Parsing Bug von Int Werten behoben >>> parseInt("08") lieferte 0</p>
 
 			<u>v0.9.2</u>
-			<p>Bug mit maxLength behoben >>> führte im IE zum Absturz</p>
-			<p>Browser-Kompatibilität mit IE 7 hergestellt</p>
+			<p>Bug mit maxLength behoben >>> fÃ¼hrte im IE zum Absturz</p>
+			<p>Browser-KompatibilitÃ¤t mit IE 7 hergestellt</p>
 
 			<u>v0.9.1</u>
-			<p>Markierung der aktuellen Zeile über der sich die Maus befindet (MouseOver)</p>
+			<p>Markierung der aktuellen Zeile Ã¼ber der sich die Maus befindet (MouseOver)</p>
 			<p>Benutzerlisten aktualisiert</p>
 
 			<u>v0.8</u>
@@ -341,14 +341,14 @@ $json_output = json_decode($json);
 
 			<u>v0.5</u>
 			<p>Validierung von Zahl-Feldern (Anzeigen von Fehlern)</p>
-			<p>Fokusierung der Select-Box beim Erzeugen neuer Zeilen</p>
+			<p>Fokussierung der Selectboxen beim Erzeugen neuer Zeilen</p>
 
 			<u>v0.4</u>
 			<p>Vertauschen der Reihenfolge der Teilnehmer</p>
 
 			<u>v0.3</u>
 			<p>Anpassung von Label und Layout</p>
-			<p>Übertragen der Ergebnisse (per Mail)</p>
+			<p>Ãœbertragen der Ergebnisse (per Mail)</p>
 
 			<u>v0.2</u>
 			<p>dynamisches Erzeugen von Wettbewerben</p>

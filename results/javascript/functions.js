@@ -1,11 +1,12 @@
 // Select Box for Women
-var eventTypes = new Array("",
-"Schwimm-Event",
-"Radfahr-Event",
-"Lauf-Event",
-"Duathlon",
-"Triathlon",
-"Sonstiges");
+var eventTypes = {
+"":"",
+"swim":"Schwimm-Event",
+"bike":"Radfahr-Event",
+"run":"Lauf-Event",
+"duathlon":"Duathlon",
+"triathlon":"Triathlon",
+"others":"Sonstiges"};
 
 var actCompetitionId = 0;
 var errorCount = 0;
@@ -21,6 +22,9 @@ function getXML() {
 	
 	resultXML += getXMLRow('	<paragraph>');
 	resultXML += getXMLRow('		<title>' + parseFieldValue(document.getElementById("dateDay"), true) + '.' + parseFieldValue(document.getElementById("dateMonth"), true) + '.' + parseFieldValue(document.getElementById("dateYear"), true) + ' : ' + parseTextFieldValue(document.getElementById("competition")) + '</title>');
+	resultXML += getXMLRow('		<user>##USER##</user>');
+	resultXML += getXMLRow('		<type>##TYPE##</type>');
+	resultXML += getXMLRow('		<date>##DATE##</date>');
 	resultXML += getXMLRow('		<text><![CDATA[');
 	resultXML += competitions;
 	resultXML += getXMLRow('		]]></text>');
@@ -106,10 +110,11 @@ function reportResults()
 
 				var eventTypeSelect = document.createElement("select");
 				eventTypeSelect.id = "eventTypeSelect";
-				for (var i = 0; i < eventTypes.length; i++) {
+				var key;
+        for (key in eventTypes) {
 					var eventTypeOption = document.createElement("option");
-					eventTypeOption.value = eventTypes[i];
-					eventTypeOption.appendChild(document.createTextNode(eventTypes[i]));
+					eventTypeOption.value = key;
+					eventTypeOption.appendChild(document.createTextNode(eventTypes[key]));
 					eventTypeSelect.appendChild(eventTypeOption);
 				}
 				input.appendChild(eventTypeSelect);
@@ -341,9 +346,9 @@ function sendResults(xml) {
 		var params = new Array();
 		params.push(["1_Name", user]);
 		params.push(["2_Wettkampfname", competition]);
-		params.push(["3_Veranstaltungsart", eventType]);
+		params.push(["3_Veranstaltungsart", eventTypes[eventType]]);
 		params.push(["4_Kommentar", "\n\n" + comment + "\n"]);
-		params.push(["5_XML", "\n\n" + xml]);
+		params.push(["5_XML", "\n\n" + xml.replace("##USER##", user).replace("##TYPE##", eventType)]);
 		
 		doAjaxRequest("php/formmailer.php", params, function handleAjax(){resultsSendHandler()});
 		
@@ -381,7 +386,7 @@ function getCompetitions() {
 		result += getXMLRow('		<table class="resultTable" border="0" cellpadding="5" cellspacing="0" width="100%">');
 		result += getXMLRow('			<thead>');
 		result += getXMLRow('				<tr style="font-size: 1.1em; text-align: center;">');
-		result += getXMLRow('					<td colspan="5" style="border-bottom: 1px solid #000000;">' + parseTextFieldValue(document.getElementById("competition_" + actId + "_title")) + '</td>');
+		result += getXMLRow('					<td colspan="4" style="border-bottom: 1px solid #000000;">' + parseTextFieldValue(document.getElementById("competition_" + actId + "_title")) + '</td>');
 		result += getXMLRow('				</tr>');
 		result += getXMLRow('				<tr>');
 		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;">Teilnehmer</td>');
@@ -411,7 +416,7 @@ function getCompetitions() {
 					if (!womenFinished) {
 						if(!womanAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
 							result += getXMLRow('				<tr>');
-							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Frauen</a></td>');
+							result += getXMLRow('					<td colspan="4" style="font-style: italic;">Frauen</td>');
 							result += getXMLRow('				</tr>');
 							womanAdded = true;
 						}
@@ -419,7 +424,7 @@ function getCompetitions() {
 					else {
 						if(!manAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
 							result += getXMLRow('				<tr>');
-							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Männer</a></td>');
+							result += getXMLRow('					<td colspan="4" style="font-style: italic;">Männer</td>');
 							result += getXMLRow('				</tr>');
 							manAdded = true;
 						}

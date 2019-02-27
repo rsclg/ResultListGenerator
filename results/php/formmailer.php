@@ -6,6 +6,7 @@ $trelloMessage = "";
 $user = "";
 $competition = "";
 $eventType = "";
+$xml = "";
 
 while(list($name,$value)=each($_GET)) {
 	if ($name == "1_Name") {
@@ -17,8 +18,12 @@ while(list($name,$value)=each($_GET)) {
 	if ($name == "3_Veranstaltungsart") {
 		$eventType = $value;
 	}
-	$mailMessage.="$name:\t\t$value\n";
-	$trelloMessage.="##$name<br>    $value<br>";
+	if ($name != "5_XML") {
+		$trelloMessage.="##" . substr($name, 2) . " \n\n $value \n\n";
+	} else {
+    $value = str_replace("##DATE##", date("d.m.Y"), $value);
+  }
+	$mailMessage.="$name: $value\n";
 }
 
 while(list($name,$value)=each($_POST)) {
@@ -31,12 +36,16 @@ while(list($name,$value)=each($_POST)) {
 	if ($name == "3_Veranstaltungsart") {
 		$eventType = $value;
 	}
-	$mailMessage.="$name:\t\t$value\n";
-	$trelloMessage.="##$name<br>    $value<br>";
+	if ($name != "5_XML") {
+		$trelloMessage.="##" . substr($name, 2) . " \n\n $value \n\n";
+	} else {
+    $value = str_replace("##DATE##", date("d.m.Y"), $value);
+  }
+	$mailMessage.="$name: $value\n";
 }
 
 if (strlen($mailMessage) > 0) {
 	mail("mail@domain.de", "Ergebnismeldung von $user zum $eventType: $competition", $mailMessage, "From: $sender");
-	mail("trellomail@domain.com", "Ergebnisse: $competition #Purple", $trelloMessage, "From: $sender");
+	mail("mail@domain.de", "Ergebnisse: $competition #Purple", $trelloMessage, "From: $sender");
 }
 ?>SEND
