@@ -83,7 +83,7 @@ function reportResults()
 			{
 				var userLabel = document.createElement("div");
 				userLabel.style.fontStyle = "italic";
-				userLabel.innerHTML = "Name<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswählen.\">*</span>";
+				userLabel.innerHTML = "Name<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswÃ¤hlen.\">*</span>";
 				input.appendChild(userLabel);
 
 				var allUser = women.slice();
@@ -105,7 +105,7 @@ function reportResults()
 				var eventTypeLabel = document.createElement("div");
 				eventTypeLabel.style.fontStyle = "italic";
 				eventTypeLabel.style.paddingTop = "10px";
-				eventTypeLabel.innerHTML = "Veranstaltungsart<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswählen.\">*</span>";
+				eventTypeLabel.innerHTML = "Veranstaltungsart<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswÃ¤hlen.\">*</span>";
 				input.appendChild(eventTypeLabel);
 
 				var eventTypeSelect = document.createElement("select");
@@ -147,7 +147,7 @@ function reportResults()
 					var completenessTextGeneral = document.createElement("label");
 					completenessTextGeneral.setAttribute("for", "completenessCheckboxGeneral");
 					completenessTextGeneral.setAttribute("class", "completeness");
-					completenessTextGeneral.innerHTML = "Ja, die Ergebnismeldung ist vollständig.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextGeneral.innerHTML = "Ja, die Ergebnismeldung ist vollstÃ¤ndig.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestÃ¤tigen.\">*</span>";
 					completenessLabelGeneral.appendChild(completenessTextGeneral);
 				}
 				input.appendChild(completenessLabelGeneral);
@@ -164,7 +164,7 @@ function reportResults()
 					var completenessTextCompetitions = document.createElement("label");
 					completenessTextCompetitions.setAttribute("for", "completenessCheckboxCompetitions");
 					completenessTextCompetitions.setAttribute("class", "completeness");
-					completenessTextCompetitions.innerHTML = "Ja, ich habe <b><u>alle Wettbewerbe</u></b>, die stattgefunden haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextCompetitions.innerHTML = "Ja, ich habe <b><u>alle Wettbewerbe</u></b>, die stattgefunden haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestÃ¤tigen.\">*</span>";
 					completenessLabelCompetitions.appendChild(completenessTextCompetitions);
 				}
 				input.appendChild(completenessLabelCompetitions);
@@ -181,7 +181,7 @@ function reportResults()
 					var completenessTextMembers = document.createElement("label");
 					completenessTextMembers.setAttribute("for", "completenessCheckboxMembers");
 					completenessTextMembers.setAttribute("class", "completeness");
-					completenessTextMembers.innerHTML = "Ja, ich habe <b><u>alle Vereinsmitglieder</u></b>, die teilgenommen haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextMembers.innerHTML = "Ja, ich habe <b><u>alle Vereinsmitglieder</u></b>, die teilgenommen haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestÃ¤tigen.\">*</span>";
 					completenessLabelMembers.appendChild(completenessTextMembers);
 				}
 				input.appendChild(completenessLabelMembers);
@@ -255,7 +255,7 @@ function showHintCheckLastSend() {
 	
 	var text = document.createElement("div");
 	text.id = "hintCheckLastSendText";
-	text.innerHTML = "Erst prüfen,<br>ob für den Wettkampf bereits eine Ergebnismeldung vorliegt!!!";
+	text.innerHTML = "Erst prÃ¼fen,<br>ob fÃ¼r den Wettkampf bereits eine Ergebnismeldung vorliegt!!!";
 	hint.appendChild(text);
 	
 	var buttonWillDo = document.createElement("button");
@@ -356,14 +356,14 @@ function sendResults(xml) {
 		handleOverlay(false);
 	}
 	else {
-		alert("Bitte wähle deinen Namen sowie die Veranstaltungsart aus und bestätige die Vollständigkeit der Ergebnismeldung.");
+		alert("Bitte wÃ¤hle deinen Namen sowie die Veranstaltungsart aus und bestÃ¤tige die VollstÃ¤ndigkeit der Ergebnismeldung.");
 		document.getElementById("userSelect").focus();
 	}
 }
 
 function showErrorMsg() {
 	if (errorCount > 0) {
-		alert("Es wurden " + errorCount + " fehlende oder fehlerhafte Eingaben gefunden.\nBitte korrigieren bzw. ergänzen Sie diese Felder!");
+		alert("Es wurden " + errorCount + " fehlende oder fehlerhafte Eingaben gefunden.\nBitte korrigieren bzw. ergÃ¤nzen Sie diese Felder!");
 	}
 }
 
@@ -424,7 +424,7 @@ function getCompetitions() {
 					else {
 						if(!manAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
 							result += getXMLRow('				<tr>');
-							result += getXMLRow('					<td colspan="4" style="font-style: italic;">Männer</td>');
+							result += getXMLRow('					<td colspan="4" style="font-style: italic;">MÃ¤nner</td>');
 							result += getXMLRow('				</tr>');
 							manAdded = true;
 						}
@@ -563,7 +563,7 @@ function addCompetition() {
 	col.appendChild(document.createTextNode("\u00A0"));
 	
 	var competitionTemplateSelect = document.createElement("select");
-	competitionTemplateSelect.title = "Vorlagenauswahl für den Wettbewerbsnamen, kann dann noch angepasst werden";
+	competitionTemplateSelect.title = "Vorlagenauswahl fÃ¼r den Wettbewerbsnamen, kann dann noch angepasst werden";
 	competitionTemplateSelect.onchange = function () {document.getElementById("competition_" + nextId + "_title").value = this.options[this.selectedIndex].value};
 	addCompetitionTemplateValues(competitionTemplateSelect);
 	col.appendChild(competitionTemplateSelect);
@@ -628,7 +628,7 @@ function addCompetition() {
 	var link = document.createElement("a");
 	link.href = "javascript:addWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
 	link.className = "add";
-	link.title = "Frau hinzufügen";
+	link.title = "Frau hinzufÃ¼gen";
 	link.appendChild(document.createTextNode("+"));
 	col.appendChild(link);
 				
@@ -637,7 +637,7 @@ function addCompetition() {
 	link = document.createElement("a");
 	link.href = "javascript:delWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
 	link.className = "del";
-	link.title = "Letzte Frau löschen";
+	link.title = "Letzte Frau lÃ¶schen";
 	link.appendChild(document.createTextNode("X"));
 	col.appendChild(link);
 	
@@ -651,14 +651,14 @@ function addCompetition() {
 	col.style.fontStyle = "italic";
 	
 	var span = document.createElement("div");
-	span.appendChild(document.createTextNode("Männer"));
+	span.appendChild(document.createTextNode("MÃ¤nner"));
 	
 	col.appendChild(span);
 	
 	link = document.createElement("a");
 	link.href = "javascript:addManRow('competition_" + nextId + "_tbody');";
 	link.className = "add";
-	link.title = "Mann hinzufügen";
+	link.title = "Mann hinzufÃ¼gen";
 	link.appendChild(document.createTextNode("+"));
 	col.appendChild(link);
 				
@@ -667,7 +667,7 @@ function addCompetition() {
 	link = document.createElement("a");
 	link.href = "javascript:delManRow('competition_" + nextId + "_tbody');";
 	link.className = "del";
-	link.title = "Letzten Mann löschen";
+	link.title = "Letzten Mann lÃ¶schen";
 	link.appendChild(document.createTextNode("X"));
 	col.appendChild(link);
 	
@@ -849,7 +849,7 @@ function moveCompetitionDown(srcButton) {
 function addCompetitionTemplateValues (select) {
 	var optionEmpty = document.createElement("option");
 	optionEmpty.value = "";
-	optionEmpty.appendChild(document.createTextNode(">>> Vorlage auswählen"));
+	optionEmpty.appendChild(document.createTextNode(">>> Vorlage auswÃ¤hlen"));
 	select.appendChild(optionEmpty);
 	
 	var optGroup = document.createElement("optgroup");
